@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/ytlogo.jpg" type="image/x-icon">
+    <title>Ayush Gaming - Mods, Servers & More</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-light: rgba(46, 204, 113, 0.1);
+            --secondary: #3498db;
+            --secondary-dark: #2980b9;
+            --accent: #9b59b6;
+            --accent-dark: #8e44ad;
+            --dark: #1a1a1a;
+            --darker: #121212;
+            --darkest: #0a0a0a;
+            --light: #f5f5f5;
+            --lighter: #ffffff;
+            --gray: #7f8c8d;
+            --gray-light: #95a5a6;
+            --glass: rgba(30, 30, 30, 0.7);
+            --glass-light: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.2);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        [data-theme="light"] {
+            --dark: #f5f5f5;
+            --darker: #e0e0e0;
+            --darkest: #d0d0d0;
+            --light: #1a1a1a;
+            --lighter: #121212;
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-light: rgba(0, 0, 0, 0.1);
+            --glass-dark: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-light: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        /* Animated Background */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(46, 204, 113, 0.05) 0%, 
+                rgba(52, 152, 219, 0.05) 25%, 
+                rgba(155, 89, 182, 0.05) 50%, 
+                rgba(231, 76, 60, 0.05) 75%, 
+                rgba(241, 196, 15, 0.05) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: var(--lighter);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--lighter);
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            background-color: var(--glass);
+            border-bottom: 1px solid var(--glass-light);
+        }
+
+        .navbar.scrolled {
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            background-color: var(--glass);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--light);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--glass-light);
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 30px;
+            transition: var(--transition);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--lighter);
+            transform: rotate(30deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* 3D Minecraft Player */
+        .hero-model {
+            position: absolute;
+            right: 5%;
+            bottom: 0;
+            width: 400px;
+            height: 600px;
+            z-index: 2;
+            animation: heroFloat 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(46, 204, 113, 0.7));
+        }
+
+        @keyframes heroFloat {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(2deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Files Section */
+        .files-section {
+            background-color: var(--dark);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 18px 25px;
+            padding-left: 55px;
+            background: var(--glass);
+            border: 1px solid var(--glass-light);
+            border-radius: var(--border-radius);
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            background: var(--glass);
+            border: 1px solid var(--glass-light);
+            border-radius: var(--border-radius);
+            color: var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--lighter);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .file-card {
+            background: var(--glass);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--glass-light);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .file-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .file-card-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .file-card:hover .file-card-img {
+            transform: scale(1.05);
+        }
+
+        .file-card-content {
+            padding: 25px;
+        }
+
+        .file-card-title {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--lighter);
+        }
+
+        .file-card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .file-card-downloads {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .file-card-category {
+            padding: 6px 12px;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+        }
+
+        /* Servers Section */
+        .servers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .server-card {
+            background: var(--glass);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 1px solid var(--glass-light);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .server-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        .server-card.animate {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .server-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .server-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .server-name {
+            font-size: 1.4rem;
+            color: var(--lighter);
+            margin-bottom: 8px;
+        }
+
+        .server-ip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .server-ip-text {
+            font-family: monospace;
+            background: var(--darker);
+            padding: 8px 15px;
+            border-radius: var(--border-radius-sm);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--darker);
+            border: none;
+            color: var(--light);
+            padding: 8px 18px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: var(--lighter);
+        }
+
+        .copy-btn.copied {
+            background: var(--primary);
+            color: var(--lighter);
+        }
+
+        .server-players {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* YouTube Section */
+        .youtube-section {
+            background-color: var(--dark);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: var(--glass);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--glass-light);
+            opacity: 0;
+            transform: translateY(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .video-card.animate {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.08);
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .video-card:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.6);
+        }
+
+        .play-icon i {
+            color: white;
+            font-size: 1.8rem;
+            margin-left: 5px;
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--lighter);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.5rem;
+            border: 1px solid var(--glass-light);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--lighter);
+            transform: translateY(-8px) scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .youtube-link:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .discord-link:hover {
+            background: #7289da;
+            border-color: #7289da;
+        }
+
+        .twitter-link:hover {
+            background: #1da1f2;
+            border-color: #1da1f2;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 70px 0 30px;
+            text-align: center;
+            border-top: 1px solid var(--glass-light);
+        }
+
+        .footer-logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            position: relative;
+            width: 35px;
+            height: 35px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--light);
+            border-radius: 3px;
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 120px 35px 50px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4);
+            border-left: 1px solid var(--glass-light);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .mobile-menu .nav-links li {
+            margin: 0;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active .nav-links li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu.active .nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active .nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-menu.active .nav-links li:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-menu.active .nav-links li:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-menu.active .nav-links li:nth-child(5) { transition-delay: 0.3s; }
+
+        .mobile-menu .nav-links a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: block;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-light);
+            transition: var(--transition);
+        }
+
+        .mobile-menu .nav-links a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            padding-left: 15px;
+        }
+
+        .mobile-menu .theme-toggle {
+            margin: auto 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            padding: 15px;
+            background: var(--glass-light);
+            border-radius: var(--border-radius);
+            width: 100%;
+            transition: var(--transition);
+            height: auto;
+            border-radius: var(--border-radius);
+        }
+
+        .mobile-menu .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--lighter);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero-model {
+                width: 350px;
+                height: 550px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3.2rem;
+            }
+            
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-model {
+                width: 300px;
+                height: 500px;
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .theme-toggle:not(.mobile-menu .theme-toggle) {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero {
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-model {
+                display: none;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .search-bar {
+                min-width: 100%;
+            }
+            
+            .server-card, .server-info {
+                min-width: 100%;
+            }
+            
+            .mobile-menu {
+                width: 85%;
+                padding: 100px 25px 40px;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .delayed-1 {
+            animation-delay: 0.1s !important;
+        }
+
+        .delayed-2 {
+            animation-delay: 0.2s !important;
+        }
+
+        .delayed-3 {
+            animation-delay: 0.3s !important;
+        }
+
+        .delayed-4 {
+            animation-delay: 0.4s !important;
+        }
+
+        .delayed-5 {
+            animation-delay: 0.5s !important;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-light);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(46, 204, 113, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-light);
+            border-radius: var(--border-radius);
+            color: var(--light);
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--primary);
+        }
+
+        .notification.error {
+            border-left: 4px solid #e74c3c;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="./images/logo.jpg" type="image/x-icon">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="gradient-bg"></div>
+        <canvas class="particles"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">
+                <i class="fas fa-gamepad logo-icon"></i>
+                Ayush<span>Gaming</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#files">Files</a></li>
+                <li><a href="#servers">Servers</a></li>
+                <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
+                <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#files">Files</a></li>
+            <li><a href="#servers">Servers</a></li>
+            <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
+            <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
+        </ul>
+        
+        <button class="theme-toggle" id="mobile-theme-toggle">
+            <i class="fas fa-moon"></i> Switch Theme
+        </button>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to <span class="text-gradient">Ayush Gaming</span></h1>
+                <p class="hero-subtitle">Premium Minecraft Content</p>
+                <p class="hero-description">
+                    Discover the best Minecraft mods, servers, and resources. 
+                    Join thousands of players who trust Ayush Gaming for high-quality 
+                    content and seamless gaming experiences.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#files" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download Files
+                    </a>
+                    <a href="#servers" class="btn btn-outline">
+                        <i class="fas fa-server"></i> Join Servers
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 3D Minecraft Player -->
+            <div class="hero-model" id="hero-model">
+                <!-- This would be replaced with an actual 3D model in production -->
+                <img src="https://i.imgur.com/3dMinecraftPlayer.png" alt="Minecraft Character" id="minecraft-character">
+            </div>
+        </div>
+    </section>
+
+    <!-- Files Section -->
+    <section class="files-section" id="files">
+        <div class="container">
+            <div class="section-header">
+                <h2>Downloadable Files</h2>
+                <p class="section-subtitle">
+                    Browse our collection of Minecraft mods, resource packs, and tools. 
+                    All files are tested and verified for safety.
+                </p>
+            </div>
+            
+            <div class="search-filter">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search files...">
+                </div>
+                
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="mods">Mods</button>
+                    <button class="filter-btn" data-filter="resourcepacks">Resource Packs</button>
+                    <button class="filter-btn" data-filter="shaderpacks">Shader Packs</button>
+                    <button class="filter-btn" data-filter="codes">Codes</button>
+                    <button class="filter-btn" data-filter="worlds">Worlds</button>
+                    <button class="filter-btn" data-filter="tools">Tools</button>
+                </div>
+            </div>
+            
+            <div class="files-grid" id="files-grid">
+                <!-- File cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Servers Section -->
+    <section class="servers-section" id="servers">
+        <div class="container">
+            <div class="section-header">
+                <h2>Minecraft Servers</h2>
+                <p class="section-subtitle">
+                    Join our featured Minecraft servers for an amazing multiplayer experience. 
+                    Copy the IP address to connect.
+                </p>
+            </div>
+            
+            <div class="servers-list" id="servers-list">
+                <!-- Server cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Section -->
+    <section class="youtube-section" id="youtube">
+        <div class="container">
+            <div class="section-header">
+                <h2>YouTube Content</h2>
+                <p class="section-subtitle">
+                    Check out our latest Minecraft videos, tutorials, and gameplay highlights.
+                </p>
+            </div>
+            
+            <div class="videos-grid" id="videos-grid">
+                <!-- Video cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Get In Touch</h2>
+                <p class="section-subtitle">
+                    Have questions or suggestions? Feel free to reach out through any of these platforms.
+                </p>
+                
+                <div class="social-links">
+                    <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG" class="social-link youtube-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://discord.gg/9y5DjZCAjb" class="social-link discord-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo">
+                <i class="fas fa-gamepad"></i>
+                Ayush<span>Gaming</span>
+            </a>
+            
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#files">Files</a>
+                <a href="#servers">Servers</a>
+                <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a>
+                <a href="https://discord.gg/9y5DjZCAjb">Discord</a>
+            </div>
+            
+            <p class="copyright">
+                &copy; 2023 Ayush Gaming. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Successfully copied to clipboard!</span>
+    </div>
+
+    <script>
+         // Sample data for files, servers, and videos
+    const filesData = [
+        {
+            id: 1,
+            title: "Cracked Feather Client (1.21.1)",
+            category: "mods",
+            description: "Optimization mod for Minecraft that allows the game to run faster and look better.",
+            downloads: "2.4M",
+            image: "./images/code1.webp",
+            fileSize: "4.2 MB",
+            version: "1.21.1",
+            fileUrl: "FeatherClient.zip"
+        },
+        {
+            id: 2,
+            title: "Ayush Optimized (1.21.1)",
+            category: "mods",
+            description: "Get the ultimate Minecraft experience with Ayush Optimized — crafted to give players insane FPS boosts, smooth performance, and essential SMP features all in one pack! 🚀",
+            downloads: "1.8M",
+            image: "./images/code3.png",
+            fileSize: "12.5 MB",
+            version: "1.21.1",
+            fileUrl: "AyushOptimized.zip"
+        },
+        {
+            id: 3,
+            title: "Pterodactyl Panel Setup",
+            category: "codes",
+            description: "Take full control of your Minecraft, FiveM, or any game server with our Pterodactyl Panel setup service!",
+            downloads: "950K",
+            image: "./images/code2.png",
+            fileSize: "2.1 MB",
+            version: "1.19.2",
+            fileUrl: "https://drive.google.com/file/d/1KEJLC-8tIqCoMyJp6Zfd-1-1xMj82hoO/view?usp=drive_link"
+        },
+        {
+            id: 4,
+            title: "AASTAR PVP Resource",
+            category: "resourcepacks",
+            description: "Best PVP Resource Pack to increase your PVP and FPS Boost to max level!",
+            downloads: "1.2M",
+            image: "./images/code4.jpg",
+            fileSize: "3.7 MB",
+            version: "1.19.2",
+            fileUrl: "aastarpack.zip"
+        },
+        {
+            id: 5,
+            title: "Herobrine SMP World",
+            category: "worlds",
+            description: "A Herobrine SMP world inspired by the Herobrine legend, blending survival with mystery and suspense.",
+            downloads: "1.5M",
+            image: "./images/code5.jpg",
+            fileSize: "8.9 MB",
+            version: "1.19+",
+            fileUrl: "herobrineworld.zip"
+        },
+        {
+            id: 6,
+            title: "Meteor Client",
+            category: "mods",
+            description: "Meteor Client is a free, open-source utility mod for Minecraft Java Edition, used primarily on anarchy servers.",
+            downloads: "680K",
+            image: "./images/code6.jpg",
+            fileSize: "15.3 MB",
+            version: "2.0",
+            fileUrl: "meteorclient.zip"
+        }
+    ];
+
+    const serversData = [
+        {
+            id: 1,
+            name: "Ayush Lifesteal (SOON!)",
+            ip: "SOON!",
+            players: "85,000",
+            description: "We will soon launch our lifesteal server with custom items, so please wait until launch!"
+        },
+        {
+            id: 2,
+            name: "MineBerry",
+            ip: "mc.mineberry.org",
+            players: "12,000",
+            description: "Popular Minecraft server with Survival, Minigames, and PvP."
+        },
+        {
+            id: 3,
+            name: "MC Fleet",
+            ip: "play.mcfleet.net",
+            players: "8,500",
+            description: "Indian Minecraft SMP created by GamerFleet — survival, bedwars, and more."
+        },
+        {
+            id: 4,
+            name: "Battle Pie",
+            ip: "play.battlepie.net",
+            players: "6,200",
+            description: "PvP-focused Minecraft server for intense battles."
+        }
+    ];
+
+    const videosData = [
+            {
+                id: 1,
+                title: "PC PLAYER☠️☠️ VS Me 👿😈(MOBILE PLAYER)",
+                thumbnail: "./images/thumbnail1.webp",
+                views: "90",
+                date: "8 months ago"
+            },
+            {
+                id: 2,
+                title: "The Best Cracked Minecraft LIFESTEAL SMP SERVER !",
+                thumbnail: "./images/thumbnail2.webp",
+                views: "50",
+                date: "2 weeks ago"
+            },
+            {
+                id: 3,
+                title: "PVP MONTAGE with @NOT SICK #minecraft #minecraftpvpclips #ayushgaming2012 #fleetsmp",
+                thumbnail: "./images/thumbnail3.webp",
+                views: "35",
+                date: "2 months ago"
+            },
+            {
+                id: 4,
+                title: "Minecraft PVP",
+                thumbnail: "./images/thumbnail4.webp",
+                views: "33",
+                date: "3 months ago"
+            },
+            {
+                id: 5,
+                title: "New discord channel launched. Check it now!!!! #discord #ayushgaming2012 #server #development",
+                thumbnail: "./images/thumbnail5.webp",
+                views: "10",
+                date: "3 months ago"
+            },
+            {
+                id: 6,
+                title: "Day 1: Surviving My First Night in Survival Minecraft",
+                thumbnail: "./images/thumbnail6.webp",
+                views: "16",
+                date: "3 weeks ago"
+            }
+        ];
+
+    // DOM Elements
+    const navbar = document.querySelector('.navbar');
+    const themeToggle = document.getElementById('theme-toggle');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('overlay');
+    const searchInput = document.getElementById('search-input');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filesGrid = document.getElementById('files-grid');
+    const serversList = document.getElementById('servers-list');
+    const videosGrid = document.getElementById('videos-grid');
+    const notification = document.getElementById('notification');
+    const notificationText = document.getElementById('notification-text');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        generateFileCards(filesData);
+        generateServerCards(serversData);
+        generateVideoCards(videosData);
+        initAnimations();
+    });
+
+    // ✅ Updated Download Function
+    function downloadFile(fileId) {
+        const file = filesData.find(f => f.id == fileId);
+        if (!file || !file.fileUrl) {
+            showNotification('Download link not found.', 'error');
+            return;
+        }
+
+        const downloadBtn = document.querySelector(`.download-btn[data-file-id="${fileId}"]`);
+        const originalText = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = '<div class="loading"></div>';
+
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = file.fileUrl;      // same directory as index.html
+            link.download = file.fileUrl;  // forces download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            downloadBtn.innerHTML = originalText;
+            showNotification(`${file.title} download started!`, 'success');
+        }, 1000);
+    }
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate file cards
+            generateFileCards(filesData);
+            
+            // Generate server cards
+            generateServerCards(serversData);
+            
+            // Generate video cards
+            generateVideoCards(videosData);
+            
+            // Initialize animations
+            initAnimations();
+            
+            // Initialize particle background
+            initParticles();
+            
+            // Initialize 3D model animations
+            initModelAnimations();
+        });
+
+        // Generate file cards
+        function generateFileCards(files) {
+            filesGrid.innerHTML = '';
+            
+            files.forEach((file, index) => {
+                const fileCard = document.createElement('div');
+                fileCard.className = `file-card delayed-${index % 6}`;
+                fileCard.dataset.category = file.category;
+                
+                fileCard.innerHTML = `
+                    <img src="${file.image}" alt="${file.title}" class="file-card-img">
+                    <div class="file-card-content">
+                        <h3 class="file-card-title">${file.title}</h3>
+                        <p>${file.description}</p>
+                        <div class="file-card-meta">
+                            <span><i class="fas fa-download"></i> ${file.downloads}</span>
+                            <span><i class="fas fa-hdd"></i> ${file.fileSize}</span>
+                        </div>
+                        <div class="file-card-footer">
+                            <span class="file-card-category">${file.category}</span>
+                            <button class="btn btn-small download-btn" data-file-id="${file.id}">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                filesGrid.appendChild(fileCard);
+            });
+            
+            // Add download functionality
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fileId = this.dataset.fileId;
+                    downloadFile(fileId);
+                });
+            });
+        }
+
+        // Generate server cards
+        function generateServerCards(servers) {
+            serversList.innerHTML = '';
+            
+            servers.forEach((server, index) => {
+                const serverCard = document.createElement('div');
+                serverCard.className = `server-card delayed-${index % 4}`;
+                
+                serverCard.innerHTML = `
+                    <div class="server-info">
+                        <h3 class="server-name">${server.name}</h3>
+                        <div class="server-ip">
+                            <span class="server-ip-text">${server.ip}</span>
+                            <button class="copy-btn" data-ip="${server.ip}">
+                                <i class="fas fa-copy"></i> Copy IP
+                            </button>
+                        </div>
+                        <p>${server.description}</p>
+                        <div class="server-players">
+                            <i class="fas fa-users"></i> ${server.players} players online
+                        </div>
+                    </div>
+                    <a  class="btn btn-accent">
+                        <i class="fas fa-play"></i> Join Server
+                    </a>
+                `;
+                
+                serversList.appendChild(serverCard);
+            });
+            
+            // Add copy IP functionality
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ip = this.dataset.ip;
+                    copyToClipboard(ip);
+                    
+                    // Show feedback
+                    this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    this.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-copy"></i> Copy IP';
+                        this.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        }
+
+        // Generate video cards
+        function generateVideoCards(videos) {
+            videosGrid.innerHTML = '';
+            
+            videos.forEach((video, index) => {
+                const videoCard = document.createElement('div');
+                videoCard.className = `video-card delayed-${index % 6}`;
+                
+                videoCard.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}">
+                        <div class="play-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> ${video.views}</span>
+                            <span><i class="far fa-calendar"></i> ${video.date}</span>
+                        </div>
+                    </div>
+                `;
+                
+                videosGrid.appendChild(videoCard);
+            });
+        }
+
+        
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            showNotification('Server IP copied to clipboard!', 'success');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            notificationText.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Animate elements on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe file cards, server cards, and video cards
+            document.querySelectorAll('.file-card, .server-card, .video-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initialize particle background
+        function initParticles() {
+            const canvas = document.querySelector('.particles');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Particle system
+            const particles = [];
+            const particleCount = 100;
+            
+            // Particle class
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.color = `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, ${Math.random() * 0.5 + 0.1})`;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    else if (this.x < 0) this.x = canvas.width;
+                    
+                    if (this.y > canvas.height) this.y = 0;
+                    else if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Create particles
+            function initParticles() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            // Animation loop
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    
+                    // Connect particles with lines
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance/100)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            initParticles();
+            animateParticles();
+        }
+
+        // Initialize 3D model animations
+        function initModelAnimations() {
+            // In a real implementation, this would control an actual 3D model
+            // For this demo, we'll simulate animations with CSS
+            
+            const model = document.getElementById('hero-model');
+            
+            // Add waving animation
+            setInterval(() => {
+                model.style.animation = 'none';
+                setTimeout(() => {
+                    model.style.animation = 'heroFloat 6s ease-in-out infinite, wave 2s ease-in-out';
+                }, 10);
+                
+                // Reset after wave animation
+                setTimeout(() => {
+                    model.style.animation = 'heroFloat 6s ease-in-out infinite';
+                }, 2000);
+            }, 10000);
+            
+            // Add walking animation on scroll
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const scrollDelta = scrollY - lastScrollY;
+                
+                if (scrollDelta > 0) {
+                    // Scrolling down - walk forward
+                    model.style.transform = `translateY(-25px) translateX(${Math.min(scrollY / 50, 50)}px) rotate(2deg)`;
+                } else {
+                    // Scrolling up - walk backward
+                    model.style.transform = `translateY(-25px) translateX(${Math.min(scrollY / 50, 50)}px) rotate(-2deg)`;
+                }
+                
+                lastScrollY = scrollY;
+            });
+            
+            // Add CSS for wave animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes wave {
+                    0% { transform: translateY(0px) rotate(0deg); }
+                    25% { transform: translateY(-25px) rotate(5deg); }
+                    50% { transform: translateY(-25px) rotate(-5deg); }
+                    75% { transform: translateY(-25px) rotate(5deg); }
+                    100% { transform: translateY(0px) rotate(0deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            // Update icon
+            const themeIcons = document.querySelectorAll('.theme-toggle i');
+            themeIcons.forEach(icon => {
+                icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+            
+            // Update mobile theme toggle text
+            if (mobileThemeToggle) {
+                mobileThemeToggle.innerHTML = `<i class="${newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${newTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('theme', newTheme);
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        // Filter functionality for files
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                filterFiles(filter);
+            });
+        });
+
+        function filterFiles(filter) {
+            const fileCards = document.querySelectorAll('.file-card');
+            
+            fileCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const fileCards = document.querySelectorAll('.file-card');
+            
+            fileCards.forEach(card => {
+                const title = card.querySelector('.file-card-title').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Update theme icons based on saved theme
+        const themeIcons = document.querySelectorAll('.theme-toggle i');
+        themeIcons.forEach(icon => {
+            icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        });
+        
+        // Update mobile theme toggle text
+        if (mobileThemeToggle) {
+            mobileThemeToggle.innerHTML = `<i class="${savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${savedTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
+        }
+    </script>
+</body>
+</html>
