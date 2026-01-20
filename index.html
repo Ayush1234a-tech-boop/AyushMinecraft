@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/ytlogo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/ytlogo.png" type="image/x-icon">
     <title>Ayush Gaming - Mods, Servers & More</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1294,9 +1294,8 @@
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#files">Files</a></li>
-                <li><a href="https://ayush1234a-tech.github.io/TierList/">PVP TierList</a></li>
+                <li><a href="https://ayush1234a-tech.github.io/TierList/" target="_blank" rel="noopener noreferrer">TierList</a></li>
                 <li><a href="#servers">Servers</a></li>
-                <li><a href="https://ayush1234a-tech-boop.github.io/AyushHUB/dashboard.html">Projects</a></li>
                 <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
                 <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
             </ul>
@@ -1305,6 +1304,7 @@
                 <i class="fas fa-moon"></i>
             </button>
             
+            <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn" id="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -1312,24 +1312,24 @@
             </button>
         </div>
     </nav>
-    
+
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
         <ul class="nav-links">
             <li><a href="#home" class="active">Home</a></li>
             <li><a href="#files">Files</a></li>
-            <li><a href="https://ayush1234a-tech.github.io/TierList/">PVP TierList</a></li>
+            <li><a href="https://ayush1234a-tech.github.io/TierList/" target="_blank" rel="noopener noreferrer">TierList</a></li>
             <li><a href="#servers">Servers</a></li>
-            <li><a href="https://ayush1234a-tech-boop.github.io/AyushHUB/dashboard.html">Projects</a></li>
             <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
             <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
         </ul>
         
         <button class="theme-toggle" id="mobile-theme-toggle">
-            <i class="fas fa-moon"></i> Switch Theme
+            <i class="fas fa-moon"></i> Switch to Light Mode
         </button>
     </div>
-    
+
+    <!-- Overlay for Mobile Menu -->
     <div class="overlay" id="overlay"></div>
 
     <!-- Hero Section -->
@@ -1355,8 +1355,7 @@
             
             <!-- 3D Minecraft Player -->
             <div class="hero-model" id="hero-model">
-                <!-- This would be replaced with an actual 3D model in production -->
-               
+                <img src="./images/player.png" alt="Minecraft Character" id="minecraft-character">
             </div>
         </div>
     </section>
@@ -1375,7 +1374,7 @@
             <div class="search-filter">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search files...">
+                    <input type="text" id="search-input" placeholder="Search files by name or description...">
                 </div>
                 
                 <div class="filter-controls">
@@ -1460,7 +1459,7 @@
             <div class="footer-links">
                 <a href="#home">Home</a>
                 <a href="#files">Files</a>
-                <a href="https://ayush1234a-tech.github.io/TierList/">PVP TierList</a>
+                <a href="https://ayush1234a-tech.github.io/TierList/" target="_blank" rel="noopener noreferrer">TierList</a>
                 <a href="#servers">Servers</a>
                 <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a>
                 <a href="https://discord.gg/9y5DjZCAjb">Discord</a>
@@ -1479,9 +1478,28 @@
     </div>
 
     <script>
-         // Sample data for files, servers, and videos
-    const filesData = [
-        {
+        // ===== STATE VARIABLES =====
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // ===== DOM ELEMENTS =====
+        const navbar = document.querySelector('.navbar');
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const filesGrid = document.getElementById('files-grid');
+        const serversList = document.getElementById('servers-list');
+        const videosGrid = document.getElementById('videos-grid');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+
+        // ===== DATA =====
+        const filesData = [
+            {
             id: 1,
             title: "Cracked Feather Client (1.21.1)",
             category: "mods",
@@ -1501,7 +1519,7 @@
             image: "./images/code3.png",
             fileSize: "12.5 MB",
             version: "1.21.1",
-            fileUrl: "AyushOptimized.zip"
+            fileUrl: "https://drive.google.com/drive/folders/1njOy0xTjoxPIo6u8H1sQRRTDkhWKg7r3?usp=sharing"
         },
         {
             id: 3,
@@ -1534,7 +1552,7 @@
             image: "./images/code5.jpg",
             fileSize: "8.9 MB",
             version: "1.19+",
-            fileUrl: "herobrineworld.zip"
+            fileUrl: "https://www.mediafire.com/file/pu49vqdsdywglei/Herobine+Smp+By+Ujjwal.zip/file"
         },
         {
             id: 6,
@@ -1546,41 +1564,64 @@
             fileSize: "15.3 MB",
             version: "2.0",
             fileUrl: "meteorclient.zip"
+        },
+        {
+            id: 7,
+            title: "AyushGaming 1M.zip",
+            category: "resourcepacks",
+            description: "It is my own Pack which is the Best PVP Resource Pack to increase your PVP and FPS Boost to max level!",
+            downloads: "680K",
+            image: "./images/code7.webp",
+            fileSize: "15.3 MB",
+            version: "2.0",
+            fileUrl: "https://drive.google.com/file/d/1oaeiw40Z1Df1E41TlsWm16YWlUS1L5Az/view?usp=drive_link"
+        },
+        {
+            id: 8,
+            title: "Cracked Lunar Account Tool",
+            category: "tools",
+            description: "How To Crack Lunar Client for Free (PERMANENT)",
+            downloads: "680K",
+            image: "./images/code8.png",
+            fileSize: "15.3 MB",
+            version: "2.0",
+            fileUrl: "https://www.mediafire.com/file/ieiyepa8drm8eta/LunarCrackedAccountManager_Setup_1.2.1.exe/file"
         }
     ];
 
-    const serversData = [
-        {
-            id: 1,
-            name: "Ayush Lifesteal (SOON!)",
-            ip: "SOON!",
-            players: "85,000",
-            description: "We will soon launch our lifesteal server with custom items, so please wait until launch!"
-        },
-        {
-            id: 2,
-            name: "MineBerry",
-            ip: "mc.mineberry.org",
-            players: "12,000",
-            description: "Popular Minecraft server with Survival, Minigames, and PvP."
-        },
-        {
-            id: 3,
-            name: "MC Fleet",
-            ip: "play.mcfleet.net",
-            players: "8,500",
-            description: "Indian Minecraft SMP created by GamerFleet — survival, bedwars, and more."
-        },
-        {
-            id: 4,
-            name: "Battle Pie",
-            ip: "play.battlepie.net",
-            players: "6,200",
-            description: "PvP-focused Minecraft server for intense battles."
-        }
-    ];
 
-    const videosData = [
+        const serversData = [
+            {
+                id: 1,
+                name: "Ayush Lifesteal (SOON!)",
+                ip: "SOON!",
+                players: "85,000",
+                description: "We will soon launch our lifesteal server with custom items, so please wait until launch!"
+            },
+            {
+                id: 2,
+                name: "MineBerry",
+                ip: "mc.mineberry.org",
+                players: "12,000",
+                description: "Popular Minecraft server with Survival, Minigames, and PvP."
+            },
+            {
+                id: 3,
+                name: "MC Fleet",
+                ip: "play.mcfleet.net",
+                players: "8,500",
+                description: "Indian Minecraft SMP created by GamerFleet — survival, bedwars, and more."
+            },
+            {
+                id: 4,
+                name: "Battle Pie",
+                ip: "play.battlepie.net",
+                players: "6,200",
+                description: "PvP-focused Minecraft server for intense battles."
+            }
+        ];
+
+        const videosData = [
             {
                 id: 1,
                 title: "PC PLAYER☠️☠️ VS Me 👿😈(MOBILE PLAYER)",
@@ -1625,53 +1666,7 @@
             }
         ];
 
-    // DOM Elements
-    const navbar = document.querySelector('.navbar');
-    const themeToggle = document.getElementById('theme-toggle');
-    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('overlay');
-    const searchInput = document.getElementById('search-input');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const filesGrid = document.getElementById('files-grid');
-    const serversList = document.getElementById('servers-list');
-    const videosGrid = document.getElementById('videos-grid');
-    const notification = document.getElementById('notification');
-    const notificationText = document.getElementById('notification-text');
-
-    document.addEventListener('DOMContentLoaded', function() {
-        generateFileCards(filesData);
-        generateServerCards(serversData);
-        generateVideoCards(videosData);
-        initAnimations();
-    });
-
-    // ✅ Updated Download Function
-    function downloadFile(fileId) {
-        const file = filesData.find(f => f.id == fileId);
-        if (!file || !file.fileUrl) {
-            showNotification('Download link not found.', 'error');
-            return;
-        }
-
-        const downloadBtn = document.querySelector(`.download-btn[data-file-id="${fileId}"]`);
-        const originalText = downloadBtn.innerHTML;
-        downloadBtn.innerHTML = '<div class="loading"></div>';
-
-        setTimeout(() => {
-            const link = document.createElement('a');
-            link.href = file.fileUrl;      // same directory as index.html
-            link.download = file.fileUrl;  // forces download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            downloadBtn.innerHTML = originalText;
-            showNotification(`${file.title} download started!`, 'success');
-        }, 1000);
-    }
-        // Initialize the page
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             // Generate file cards
             generateFileCards(filesData);
@@ -1688,11 +1683,14 @@
             // Initialize particle background
             initParticles();
             
-            // Initialize 3D model animations
-            initModelAnimations();
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Load saved theme
+            loadSavedTheme();
         });
 
-        // Generate file cards
+        // ===== FILE FUNCTIONS =====
         function generateFileCards(files) {
             filesGrid.innerHTML = '';
             
@@ -1700,6 +1698,8 @@
                 const fileCard = document.createElement('div');
                 fileCard.className = `file-card delayed-${index % 6}`;
                 fileCard.dataset.category = file.category;
+                fileCard.dataset.title = file.title.toLowerCase();
+                fileCard.dataset.description = file.description.toLowerCase();
                 
                 fileCard.innerHTML = `
                     <img src="${file.image}" alt="${file.title}" class="file-card-img">
@@ -1729,9 +1729,79 @@
                     downloadFile(fileId);
                 });
             });
+            
+            // Apply initial filter
+            filterAndSearchFiles();
         }
 
-        // Generate server cards
+        function filterAndSearchFiles() {
+            const fileCards = document.querySelectorAll('.file-card');
+            const searchTerm = currentSearch.toLowerCase();
+            
+            fileCards.forEach(card => {
+                const category = card.dataset.category;
+                const title = card.dataset.title;
+                const description = card.dataset.description;
+                
+                // Check category filter
+                const categoryMatch = currentFilter === 'all' || category === currentFilter;
+                
+                // Check search term
+                const searchMatch = !searchTerm || 
+                    title.includes(searchTerm) || 
+                    description.includes(searchTerm);
+                
+                // Show/hide card based on both filters
+                if (categoryMatch && searchMatch) {
+                    card.style.display = 'block';
+                    // Add fade-in animation
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    }, 10);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function downloadFile(fileId) {
+            const file = filesData.find(f => f.id == fileId);
+            if (!file || !file.fileUrl) {
+                showNotification('Download link not found.', 'error');
+                return;
+            }
+
+            const downloadBtn = document.querySelector(`.download-btn[data-file-id="${fileId}"]`);
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<div class="loading"></div>';
+            downloadBtn.disabled = true;
+
+            setTimeout(() => {
+                if (file.fileUrl.includes('drive.google.com') || file.fileUrl.includes('http')) {
+                    // Open in new tab for external links
+                    window.open(file.fileUrl, '_blank');
+                    showNotification(`Opening ${file.title} in new tab...`, 'success');
+                } else {
+                    // Direct download for local files
+                    const link = document.createElement('a');
+                    link.href = file.fileUrl;
+                    link.download = file.title.replace(/\s+/g, '_') + '.zip';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showNotification(`${file.title} download started!`, 'success');
+                }
+
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+            }, 1000);
+        }
+
+        // ===== SERVER FUNCTIONS =====
         function generateServerCards(servers) {
             serversList.innerHTML = '';
             
@@ -1753,9 +1823,9 @@
                             <i class="fas fa-users"></i> ${server.players} players online
                         </div>
                     </div>
-                    <a  class="btn btn-accent">
+                    <button class="btn btn-accent join-server-btn" data-ip="${server.ip}">
                         <i class="fas fa-play"></i> Join Server
-                    </a>
+                    </button>
                 `;
                 
                 serversList.appendChild(serverCard);
@@ -1777,9 +1847,22 @@
                     }, 2000);
                 });
             });
+            
+            // Add join server functionality
+            document.querySelectorAll('.join-server-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ip = this.dataset.ip;
+                    if (ip !== 'SOON!') {
+                        copyToClipboard(ip);
+                        showNotification(`IP copied! Launch Minecraft and connect to: ${ip}`, 'success');
+                    } else {
+                        showNotification('Server coming soon! Stay tuned.', 'success');
+                    }
+                });
+            });
         }
 
-        // Generate video cards
+        // ===== VIDEO FUNCTIONS =====
         function generateVideoCards(videos) {
             videosGrid.innerHTML = '';
             
@@ -1805,23 +1888,38 @@
                 
                 videosGrid.appendChild(videoCard);
             });
-        }
-
-        
-
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
             
-            showNotification('Server IP copied to clipboard!', 'success');
+            // Add click functionality to video cards
+            document.querySelectorAll('.video-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.video-title').textContent;
+                    showNotification(`Opening YouTube video: ${title}`, 'success');
+                    window.open('https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG', '_blank');
+                });
+            });
         }
 
-        // Show notification function
+        // ===== UTILITY FUNCTIONS =====
+        function copyToClipboard(text) {
+            if (text === 'SOON!') {
+                showNotification('Server IP not available yet!', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Server IP copied to clipboard!', 'success');
+            }).catch(err => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('Server IP copied to clipboard!', 'success');
+            });
+        }
+
         function showNotification(message, type = 'success') {
             notificationText.textContent = message;
             notification.className = `notification ${type}`;
@@ -1832,9 +1930,8 @@
             }, 3000);
         }
 
-        // Initialize animations
+        // ===== ANIMATION FUNCTIONS =====
         function initAnimations() {
-            // Animate elements on scroll
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -1849,18 +1946,17 @@
                 });
             }, observerOptions);
             
-            // Observe file cards, server cards, and video cards
             document.querySelectorAll('.file-card, .server-card, .video-card').forEach(el => {
                 observer.observe(el);
             });
         }
 
-        // Initialize particle background
         function initParticles() {
             const canvas = document.querySelector('.particles');
+            if (!canvas) return;
+            
             const ctx = canvas.getContext('2d');
             
-            // Set canvas size
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -1869,11 +1965,9 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             
-            // Particle system
             const particles = [];
             const particleCount = 100;
             
-            // Particle class
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
@@ -1903,14 +1997,12 @@
                 }
             }
             
-            // Create particles
-            function initParticles() {
+            function initParticlesArray() {
                 for (let i = 0; i < particleCount; i++) {
                     particles.push(new Particle());
                 }
             }
             
-            // Animation loop
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
@@ -1918,7 +2010,6 @@
                     particles[i].update();
                     particles[i].draw();
                     
-                    // Connect particles with lines
                     for (let j = i; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
@@ -1938,78 +2029,18 @@
                 requestAnimationFrame(animateParticles);
             }
             
-            initParticles();
+            initParticlesArray();
             animateParticles();
         }
 
-        // Initialize 3D model animations
-        function initModelAnimations() {
-            // In a real implementation, this would control an actual 3D model
-            // For this demo, we'll simulate animations with CSS
-            
-            const model = document.getElementById('hero-model');
-            
-            // Add waving animation
-            setInterval(() => {
-                model.style.animation = 'none';
-                setTimeout(() => {
-                    model.style.animation = 'heroFloat 6s ease-in-out infinite, wave 2s ease-in-out';
-                }, 10);
-                
-                // Reset after wave animation
-                setTimeout(() => {
-                    model.style.animation = 'heroFloat 6s ease-in-out infinite';
-                }, 2000);
-            }, 10000);
-            
-            // Add walking animation on scroll
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-                const scrollDelta = scrollY - lastScrollY;
-                
-                if (scrollDelta > 0) {
-                    // Scrolling down - walk forward
-                    model.style.transform = `translateY(-25px) translateX(${Math.min(scrollY / 50, 50)}px) rotate(2deg)`;
-                } else {
-                    // Scrolling up - walk backward
-                    model.style.transform = `translateY(-25px) translateX(${Math.min(scrollY / 50, 50)}px) rotate(-2deg)`;
-                }
-                
-                lastScrollY = scrollY;
-            });
-            
-            // Add CSS for wave animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes wave {
-                    0% { transform: translateY(0px) rotate(0deg); }
-                    25% { transform: translateY(-25px) rotate(5deg); }
-                    50% { transform: translateY(-25px) rotate(-5deg); }
-                    75% { transform: translateY(-25px) rotate(5deg); }
-                    100% { transform: translateY(0px) rotate(0deg); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Theme toggle functionality
+        // ===== THEME FUNCTIONS =====
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             document.documentElement.setAttribute('data-theme', newTheme);
             
-            // Update icon
+            // Update icons
             const themeIcons = document.querySelectorAll('.theme-toggle i');
             themeIcons.forEach(icon => {
                 icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
@@ -2024,10 +2055,23 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        themeToggle.addEventListener('click', toggleTheme);
-        mobileThemeToggle.addEventListener('click', toggleTheme);
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Update theme icons based on saved theme
+            const themeIcons = document.querySelectorAll('.theme-toggle i');
+            themeIcons.forEach(icon => {
+                icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+            
+            // Update mobile theme toggle text
+            if (mobileThemeToggle) {
+                mobileThemeToggle.innerHTML = `<i class="${savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${savedTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
+            }
+        }
 
-        // Mobile menu functionality
+        // ===== MOBILE MENU FUNCTIONS =====
         function toggleMobileMenu() {
             mobileMenuBtn.classList.toggle('active');
             mobileMenu.classList.toggle('active');
@@ -2035,89 +2079,82 @@
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
 
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        overlay.addEventListener('click', toggleMobileMenu);
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', toggleMobileMenu);
-        });
-
-        // Filter functionality for files
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Update active button
-                filterBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.dataset.filter;
-                filterFiles(filter);
-            });
-        });
-
-        function filterFiles(filter) {
-            const fileCards = document.querySelectorAll('.file-card');
-            
-            fileCards.forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.style.display = 'block';
+        // ===== EVENT LISTENER SETUP =====
+        function setupEventListeners() {
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
                 } else {
-                    card.style.display = 'none';
+                    navbar.classList.remove('scrolled');
                 }
             });
-        }
 
-        // Search functionality
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const fileCards = document.querySelectorAll('.file-card');
-            
-            fileCards.forEach(card => {
-                const title = card.querySelector('.file-card-title').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            overlay.addEventListener('click', toggleMobileMenu);
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // File category filtering
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentFilter = this.dataset.filter;
+                    filterAndSearchFiles();
+                });
+            });
+
+            // File search
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase();
+                filterAndSearchFiles();
+            });
+
+            // Clear search on 'Escape' key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    currentSearch = '';
+                    filterAndSearchFiles();
                 }
             });
-        });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
                 }
             });
-        });
-
-        // Load saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        
-        // Update theme icons based on saved theme
-        const themeIcons = document.querySelectorAll('.theme-toggle i');
-        themeIcons.forEach(icon => {
-            icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-        });
-        
-        // Update mobile theme toggle text
-        if (mobileThemeToggle) {
-            mobileThemeToggle.innerHTML = `<i class="${savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${savedTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
         }
     </script>
 </body>
 </html>
-
-
