@@ -1831,6 +1831,21 @@
     </div>
 
     <script>
+        // PAGE DOEST NOT CLOSE -->
+        document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("a[href]").forEach(link => {
+      const url = link.getAttribute("href");
+
+      if (
+        url &&
+        !url.startsWith("#") &&
+        !url.startsWith("javascript:")
+      ) {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+      }
+    });
+  });
         // ===== STATE VARIABLES =====
         let currentFilter = 'all';
         let currentSearch = '';
@@ -2662,3 +2677,4 @@
     </script>
 </body>
 </html>
+
