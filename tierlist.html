@@ -1,0 +1,1984 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="./icons/ytlogo.png" type="image/x-icon">
+  <title>Top Minecraft PvP Rankings — Professional Leaderboard with Tiers</title>
+  <style>
+    /* ==========================================
+       Variables & Base
+       ========================================== */
+    :root{
+      --bg-1: #0b0f10;
+      --bg-2: linear-gradient(180deg,#071012 0%, #0d1415 100%);
+      --panel: #0f1717;
+      --muted: #9fb3b0;
+      --accent: #6fe3a2;
+      --accent-2: #78c7ff;
+      --accent-3: #ffd700;
+      --accent-4: #ff6b6b;
+      --accent-5: #a178ff;
+      --glass: rgba(255,255,255,0.03);
+      --glow: 0 6px 30px rgba(111,227,162,0.06);
+      --radius: 12px;
+      --transition: 300ms cubic-bezier(.2,.9,.2,1);
+      --shadow: 0 6px 24px rgba(0,0,0,0.6);
+      --row-delay-step: 60ms;
+      
+      /* Rank Colors */
+      --rank-1: linear-gradient(135deg, #ffd700, #ffed4e, #fff9aa);
+      --rank-2: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+      --rank-3: linear-gradient(135deg, #cd7f32, #e39e6f);
+      --rank-top: linear-gradient(135deg, #2b6b53, #6fe3a2);
+      --rank-mid: linear-gradient(135deg, #5c6b7a, #7d8b9a);
+      
+      /* Tier Colors */
+      --tier-ht1: linear-gradient(135deg, #ffd700, #ffed4e);
+      --tier-ht2: linear-gradient(135deg, #5b8cff, #78c7ff);
+      --tier-ht3: linear-gradient(135deg, #cd7f32, #e39e6f);
+      --tier-lt1: linear-gradient(135deg, #7d8b9a, #9fb3b0);
+      --tier-lt2: linear-gradient(135deg, #5c6b7a, #7d8b9a);
+      --tier-lt3: linear-gradient(135deg, #3c4b5a, #5c6b7a);
+      --tier-ht4: linear-gradient(135deg, #8b5a2b, #a67c52);
+      --tier-ht5: linear-gradient(135deg, #734222, #8b5a2b);
+      --tier-lt4: linear-gradient(135deg, #4a5c6d, #6b7d8e);
+      --tier-lt5: linear-gradient(135deg, #3a4b5c, #5a6b7c);
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Segoe UI', 'Inter', ui-sans-serif, system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-2);
+      color: #dff6f0;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding: 16px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Container centers and sets max width */
+    .container{
+      width:100%;
+      max-width:1400px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    /* Responsive: mobile adjustments */
+    @media (max-width:768px){
+      body{padding:12px;}
+      .container{gap:16px;}
+    }
+
+    /* ==========================================
+       Header with Controls
+       ========================================== */
+    .header{
+      background: linear-gradient(180deg, #0f1717, #0a1212);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(111,227,162,0.08);
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .header-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+
+    .logo-title{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .logo{
+      width:60px;
+      height:60px;
+      border-radius:12px;
+      background: linear-gradient(135deg,#2b6b53,#6fe3a2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#062019;
+      box-shadow: 0 6px 18px rgba(111,227,162,0.2);
+      font-family: "Minecraft", monospace;
+      font-size:24px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .logo::after{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:50%;
+      background:linear-gradient(rgba(255,255,255,0.2), transparent);
+    }
+
+    .title-section h1{
+      font-size:28px;
+      margin:0 0 4px 0;
+      background: linear-gradient(90deg, #6fe3a2, #78c7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight:700;
+    }
+
+    .title-section p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .controls{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .search-box{
+      position:relative;
+      min-width:280px;
+    }
+
+    .search-box input{
+      width:100%;
+      padding:12px 16px 12px 42px;
+      background: rgba(15, 23, 23, 0.8);
+      border: 1px solid rgba(111,227,162,0.1);
+      border-radius: 10px;
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow: 0 0 0 3px rgba(111,227,162,0.1);
+    }
+
+    .search-box::before{
+      content:'🔍';
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .sort-dropdown{
+      position:relative;
+      min-width:180px;
+    }
+
+    .sort-dropdown select{
+      width:100%;
+      padding:12px 16px;
+      background: rgba(15, 23, 23, 0.8);
+      border: 1px solid rgba(111,227,162,0.1);
+      border-radius: 10px;
+      color: white;
+      font-size: 14px;
+      appearance: none;
+      cursor:pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sort-dropdown::after{
+      content:'▼';
+      position:absolute;
+      right:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:10px;
+      pointer-events:none;
+    }
+
+    .sort-dropdown select:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow: 0 0 0 3px rgba(111,227,162,0.1);
+    }
+
+    .stats-summary{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+      gap:16px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat-item{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .stat-value{
+      font-size:20px;
+      font-weight:700;
+      color:white;
+    }
+
+    .stat-label{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* ==========================================
+       Main Leaderboard
+       ========================================== */
+    .leaderboard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:24px;
+      box-shadow: var(--shadow);
+      min-height: 200px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    /* Updated leaderboard header with Tiers column */
+    .leaderboard-header{
+      display:grid;
+      grid-template-columns: 80px 1fr 280px repeat(4, 140px) 120px;
+      padding: 12px 16px;
+      background: rgba(15, 23, 23, 0.6);
+      border-radius: 8px;
+      font-weight:600;
+      font-size:14px;
+      color:var(--muted);
+      border-bottom:2px solid rgba(111,227,162,0.1);
+    }
+
+    /* ==========================================
+       Tier Icons Container (Horizontal Scrollbar for Small Screens)
+       ========================================== */
+    .tiers-container {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 0; /* Important for flex-shrink */
+    }
+
+    .tiers-scroll-wrapper {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(111,227,162,0.3) rgba(15, 23, 23, 0.5);
+      min-width: 0;
+      flex: 1;
+    }
+
+    .tiers-scroll-wrapper::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .tiers-scroll-wrapper::-webkit-scrollbar-track {
+      background: rgba(15, 23, 23, 0.5);
+      border-radius: 3px;
+    }
+
+    .tiers-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(111,227,162,0.3);
+      border-radius: 3px;
+    }
+
+    .tiers-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+      background: rgba(111,227,162,0.5);
+    }
+
+    .tier-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      min-width: 60px;
+      flex-shrink: 0;
+      transition: all 300ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .tier-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+      transition: all 300ms ease;
+    }
+
+    /* Tier-specific backgrounds */
+    .tier-ht1 .tier-circle { background: var(--tier-ht1); }
+    .tier-ht2 .tier-circle { background: var(--tier-ht2); }
+    .tier-ht3 .tier-circle { background: var(--tier-ht3); }
+    .tier-ht4 .tier-circle { background: var(--tier-ht4); }
+    .tier-ht5 .tier-circle { background: var(--tier-ht5); }
+    .tier-lt1 .tier-circle { background: var(--tier-lt1); }
+    .tier-lt2 .tier-circle { background: var(--tier-lt2); }
+    .tier-lt3 .tier-circle { background: var(--tier-lt3); }
+    .tier-lt4 .tier-circle { background: var(--tier-lt4); }
+    .tier-lt5 .tier-circle { background: var(--tier-lt5); }
+
+    .tier-inner {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(15, 23, 23, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid rgba(255,255,255,0.1);
+    }
+
+    .tier-symbol {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tier-symbol img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .tier-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      letter-spacing: 0.5px;
+      background: rgba(15, 23, 23, 0.8);
+      padding: 2px 6px;
+      border-radius: 4px;
+      min-width: 36px;
+      text-align: center;
+    }
+
+    /* Hover effects for tier icons */
+    .tier-icon:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+    .tier-icon:hover .tier-circle {
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.2), 0 0 20px currentColor;
+    }
+
+    /* ==========================================
+       Player Row - UPDATED with Tier Icons
+       ========================================== */
+    .player-row{
+      display:grid;
+      grid-template-columns: 80px 1fr 280px repeat(4, 140px) 120px;
+      align-items:center;
+      gap:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+      border-radius:12px;
+      padding:16px;
+      border:1px solid rgba(255,255,255,0.03);
+      transform: translateY(20px);
+      opacity:0;
+      transition: transform 400ms ease, opacity 400ms ease, box-shadow 300ms ease, border-color 300ms ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Top 3 Highlight Effects */
+    .player-row[data-rank="1"]{
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
+      border-color: rgba(255, 215, 0, 0.2);
+      position:relative;
+    }
+
+    .player-row[data-rank="1"]::before{
+      content:'';
+      position:absolute;
+      top:-1px;
+      left:-1px;
+      right:-1px;
+      height:3px;
+      background: var(--rank-1);
+      border-radius:12px 12px 0 0;
+    }
+
+    .player-row[data-rank="2"]{
+      background: linear-gradient(180deg, rgba(192, 192, 192, 0.05), rgba(192, 192, 192, 0.02));
+      border-color: rgba(192, 192, 192, 0.2);
+    }
+
+    .player-row[data-rank="3"]{
+      background: linear-gradient(180deg, rgba(205, 127, 50, 0.05), rgba(205, 127, 50, 0.02));
+      border-color: rgba(205, 127, 50, 0.2);
+    }
+
+    /* ==========================================
+       RESPONSIVE DESIGN
+       ========================================== */
+    
+    /* Large Tablets & Small Laptops (1024px) */
+    @media (max-width: 1200px) {
+      .leaderboard-header {
+        grid-template-columns: 70px 1fr 240px repeat(2, 140px) 100px;
+      }
+      .player-row {
+        grid-template-columns: 70px 1fr 240px repeat(2, 140px) 100px;
+      }
+      
+      /* Hide some stat columns */
+      .player-stats > div:nth-child(3),
+      .player-stats > div:nth-child(4) {
+        display: none;
+      }
+      
+      .leaderboard-header div:nth-child(5),
+      .leaderboard-header div:nth-child(6) {
+        display: none;
+      }
+    }
+
+    /* Tablets (768px) */
+    @media (max-width: 1024px) {
+      .leaderboard-header {
+        display: none;
+      }
+      
+      .player-row {
+        grid-template-columns: 60px 1fr 200px repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        gap: 12px;
+      }
+      
+      .tiers-container {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 8px;
+      }
+      
+      .tiers-scroll-wrapper {
+        padding: 8px;
+        background: rgba(15, 23, 23, 0.3);
+        border-radius: 8px;
+      }
+    }
+
+    /* Mobile (480px) */
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .controls {
+        width: 100%;
+      }
+      
+      .search-box {
+        min-width: 100%;
+      }
+      
+      .player-row {
+        grid-template-columns: 50px 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 12px;
+      }
+      
+      .tiers-container {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+      
+      .player-stats {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .player-last-updated {
+        grid-column: 1 / -1;
+        grid-row: 4;
+        text-align: center;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .player-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      
+      .player-avatar {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    /* Small Mobile (360px) */
+    @media (max-width: 480px) {
+      .player-row {
+        grid-template-columns: 40px 1fr;
+      }
+      
+      .player-rank {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .tier-circle {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .tier-inner {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .tier-symbol {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .tier-label {
+        font-size: 10px;
+        min-width: 30px;
+      }
+      
+      .player-name {
+        font-size: 16px;
+      }
+      
+      .stat-value-main {
+        font-size: 18px;
+      }
+    }
+
+    /* When visible, slide up into place */
+    .player-row.show{
+      transform: translateY(0);
+      opacity:1;
+    }
+
+    /* Hover effects */
+    .player-row:hover{
+      transform: translateY(-4px);
+      border-color: rgba(111,227,162,0.3);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(111,227,162,0.1);
+    }
+
+    /* Rank Column */
+    .player-rank{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      font-weight:800;
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      position:relative;
+    }
+
+    .player-row[data-rank="1"] .player-rank{
+      background: var(--rank-1);
+      color:#8a6d00;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .player-row[data-rank="2"] .player-rank{
+      background: var(--rank-2);
+      color:#5a5a5a;
+      box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+    }
+
+    .player-row[data-rank="3"] .player-rank{
+      background: var(--rank-3);
+      color:#7a4d1a;
+      box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+    }
+
+    .player-row[data-rank]:not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) .player-rank{
+      background: linear-gradient(135deg, #0f2a22, #12372e);
+      color:var(--accent);
+      box-shadow: 0 6px 18px rgba(17, 86, 61, 0.1);
+    }
+
+    /* Player Info Column */
+    .player-info{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .player-avatar{
+      width:64px;
+      height:64px;
+      border-radius:12px;
+      border:2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      transition: transform var(--transition), box-shadow var(--transition);
+      image-rendering: pixelated;
+      object-fit: cover;
+    }
+
+    .player-row:hover .player-avatar{
+      transform: scale(1.08);
+      box-shadow: 0 10px 40px rgba(111,227,162,0.15);
+      border-color: rgba(111,227,162,0.3);
+    }
+
+    .player-details{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .player-name{
+      font-size:18px;
+      font-weight:700;
+      color:#e6fff7;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap: wrap;
+    }
+
+    .player-region{
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .region-flag{
+      width:16px;
+      height:12px;
+      border-radius:2px;
+      background:linear-gradient(90deg, #002868, #bf0a30); /* Example: US flag colors */
+    }
+
+    /* Stats Columns */
+    .player-stats{
+      display:contents; /* Makes children part of grid */
+    }
+
+    .stat-column{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .stat-value-main{
+      font-size:20px;
+      font-weight:700;
+      color:white;
+    }
+
+    .player-row[data-rank="1"] .stat-value-main{
+      color:#ffd700;
+    }
+
+    .player-row[data-rank="2"] .stat-value-main{
+      color:#c0c0c0;
+    }
+
+    .player-row[data-rank="3"] .stat-value-main{
+      color:#e39e6f;
+    }
+
+    .stat-label-main{
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    .kdr-high{
+      color:#6fe3a2 !important;
+    }
+
+    .kdr-mid{
+      color:#78c7ff !important;
+    }
+
+    .kdr-low{
+      color:#ff6b6b !important;
+    }
+
+    /* Last Updated Column */
+    .player-last-updated{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:4px;
+    }
+
+    .updated-time{
+      font-size:14px;
+      font-weight:600;
+      color:white;
+    }
+
+    .updated-label{
+      font-size:11px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    /* ==========================================
+       Player Details Modal
+       ========================================== */
+    .player-modal{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .player-modal.active{
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content{
+      background: linear-gradient(180deg, #0f1717, #0a1212);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid rgba(111,227,162,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      transform: scale(0.9);
+      transition: transform 400ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .player-modal.active .modal-content{
+      transform: scale(1);
+    }
+
+    .modal-header{
+      padding: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(111,227,162,0.05), transparent);
+    }
+
+    .modal-header h3{
+      margin: 0;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #e6fff7;
+    }
+
+    .close-modal{
+      background: rgba(255,255,255,0.05);
+      border: none;
+      color: var(--muted);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 18px;
+    }
+
+    .close-modal:hover{
+      background: rgba(255,255,255,0.1);
+      color: var(--accent);
+      transform: rotate(90deg);
+    }
+
+    .modal-body{
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 768px){
+      .modal-body{
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    .player-summary{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align:center;
+    }
+
+    .summary-avatar{
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      border: 4px solid rgba(111,227,162,0.2);
+      box-shadow: 0 10px 30px rgba(111,227,162,0.2);
+      image-rendering: pixelated;
+      object-fit: cover;
+    }
+
+    .summary-rank{
+      font-size: 28px;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 12px;
+      min-width: 120px;
+    }
+
+    .modal-player-name{
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .modal-player-region{
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .stats-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 480px){
+      .stats-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-card{
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 200ms ease;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .stat-card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(111,227,162,0.1);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .stat-label{
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value{
+      font-size: 32px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .stat-value.positive{
+      color: #6fe3a2;
+    }
+
+    .stat-value.neutral{
+      color: #78c7ff;
+    }
+
+    .stat-value.negative{
+      color: #ff6b6b;
+    }
+
+    .stat-subtext{
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Modal Tiers Section */
+    .modal-tiers{
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .modal-tiers-title{
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-tiers-container{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .modal-tiers .tier-icon{
+      transform: scale(0.9);
+    }
+
+    /* Footer */
+    .footer{
+      margin-top:8px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding:16px;
+      background:transparent;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Loading Animation */
+    .loading{
+      display:none;
+      text-align:center;
+      padding:40px;
+      color:var(--muted);
+    }
+
+    .loading.active{
+      display:block;
+    }
+
+    /* No Results */
+    .no-results{
+      display:none;
+      text-align:center;
+      padding:60px 20px;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    .no-results.active{
+      display:block;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 23, 0.5);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(111,227,162,0.3);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(111,227,162,0.5);
+    }
+
+    /* Tier Legend */
+    .tier-legend{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      justify-content: center;
+    }
+
+    .legend-item{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .legend-color{
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .legend-ht1{ background: #ffd700; }
+    .legend-ht2{ background: #5b8cff; }
+    .legend-ht3{ background: #cd7f32; }
+    .legend-ht4{ background: #8b5a2b; }
+    .legend-ht5{ background: #734222; }
+    .legend-lt1{ background: #7d8b9a; }
+    .legend-lt2{ background: #5c6b7a; }
+    .legend-lt3{ background: #3c4b5a; }
+    .legend-lt4{ background: #4a5c6d; }
+    .legend-lt5{ background: #3a4b5c; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header with Controls -->
+    <header class="header">
+      <div class="header-top">
+        <div class="logo-title">
+          <div class="logo"><img src="./icons/logo.png" width="62" heigth=""></div>
+          <div class="title-section">
+            <h1>Minecraft PvP Leaderboard</h1>
+            <p>Real-time rankings of top Minecraft PvP players worldwide</p>
+          </div>
+        </div>
+        
+        <div class="controls">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search player by name..." aria-label="Search players">
+          </div>
+          <div class="sort-dropdown">
+            <select id="sortSelect" aria-label="Sort players by">
+              <option value="rank">Sort by: Rank</option>
+              <option value="wins">Sort by: Wins</option>
+              <option value="kdr">Sort by: K/D Ratio</option>
+              <option value="score">Sort by: Overall Score</option>
+              <option value="kills">Sort by: Kills</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-summary">
+        <div class="stat-item">
+          <div class="stat-value" id="totalPlayers">15</div>
+          <div class="stat-label">Total Players</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="totalWins">4,844</div>
+          <div class="stat-label">Total Wins</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="avgKDR">3.52</div>
+          <div class="stat-label">Average K/D</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="lastUpdated">Live</div>
+          <div class="stat-label">Last Updated</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Leaderboard -->
+    <main class="leaderboard" id="main">
+      <!-- Updated Leaderboard Header with Tiers column -->
+      <div class="leaderboard-header">
+        <div>Rank</div>
+        <div>Player</div>
+        <div>PvP Tiers</div>
+        <div>Wins</div>
+        <div>Losses</div>
+        <div>K/D Ratio</div>
+        <div>Overall Score</div>
+        <div>Last Active</div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading" id="loading">Loading players...</div>
+      
+      <!-- No Results -->
+      <div class="no-results" id="noResults">
+        <div style="font-size:48px;margin-bottom:16px;">😕</div>
+        <div>No players found matching your search</div>
+        <div style="font-size:14px;margin-top:8px;">Try a different name or clear your search</div>
+      </div>
+
+      <!-- Player rows will be inserted here -->
+      <div class="rank-list" id="rankList"></div>
+
+      <!-- Tier Legend -->
+      <div class="tier-legend">
+      </div>
+
+      <div class="footer">
+        Click any player for detailed stats • Scroll horizontally on tiers for mobile • Leaderboard updates in real-time
+      </div>
+    </main>
+  </div>
+
+  <!-- Player Details Modal -->
+  <div id="playerModal" class="player-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Player Statistics</h3>
+        <button class="close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Modal content filled by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Enhanced data structure with modes and tiers
+    const players = [
+      {
+        rank: 1,
+        name: "FestiveGrim",
+        region: "NA",
+        avatar: "https://mc-heads.net/avatar/FestiveGrim/64",
+        mainMode: "NethPot",
+        modes: [
+          { mode: "NethPot", tier: "HT3" },
+          { mode: "SMPKIT", tier: "HT4" },
+          { mode: "DiaPot", tier: "LT4" },
+          { mode: "Axe", tier: "LT3" },
+          { mode: "Tank", tier: "LT3" },
+          { mode: "Lifesteal", tier: "HT4" }
+        ],
+        stats: {
+          kills: 542,
+          deaths: 87,
+          kdr: 3.98,
+          wins: 514,
+          losses: 28,
+          score: 5240,
+          recentMatches: ["Win", "Win", "Loss", "Win", "Win"]
+        }
+      },
+      {
+        rank: 2,
+        name: "ItzRealMyro",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/hanspeterwurst13/64",
+        mainMode: "Axe",
+        modes: [
+          { mode: "NethPot", tier: "HT4" },
+          { mode: "SMPKIT", tier: "LT3" },
+          { mode: "Axe", tier: "LT3" },
+          { mode: "DiaPot", tier: "UNTESTED" },
+          { mode: "Lifesteal", tier: "HT4" }
+        ],
+        stats: {
+          kills: 536,
+          deaths: 87,
+          kdr: 4.13,
+          wins: 498,
+          losses: 37,
+          score: 5121,
+          recentMatches: ["Win", "Win", "Win", "Loss", "Win"]
+        }
+      },
+      {
+        rank: 3,
+        name: "Ziddi_Godwinn",
+        region: "NA",
+        avatar: "https://mc-heads.net/avatar/thaVale__/64",
+        mainMode: "Mace HT3",
+        modes: [
+          { mode: "NethPot", tier: "HT4" },
+          { mode: "SMPKIT", tier: "LT3" },
+          { mode: "Axe", tier: "LT4" },
+          { mode: "DiaPot", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT3" },
+          { mode: "Tank", tier: "HT4" }
+        ],
+        stats: {
+          kills: 511,
+          deaths: 85,
+          kdr: 3.77,
+          wins: 476,
+          losses: 41,
+          score: 4906,
+          recentMatches: ["Win", "Loss", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 4,
+        name: "z1yze_",
+        region: "NA",
+        avatar: "https://mc-heads.net/avatar/Pointer__/64",
+        mainMode: "NethPot",
+        modes: [
+          { mode: "NethPot", tier: "LT3" },
+          { mode: "SMPKIT", tier: "HT4" },
+          { mode: "Axe", tier: "LT4" },
+          { mode: "Tank", tier: "HT4" },
+          { mode: "Lifesteal", tier: "LT4" },
+          { mode: "DiaPot", tier: "UNTESTED" }
+        ],
+        stats: {
+          kills: 504,
+          deaths: 106,
+          kdr: 3.86,
+          wins: 409,
+          losses: 67,
+          score: 4272,
+          recentMatches: ["Win", "Win", "Win", "Win", "Loss"]
+        }
+      },
+      {
+        rank: 5,
+        name: "Rexar_xyz",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/Rexar_xyz/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "NethPot", tier: "LT4" },
+          { mode: "DiaPot", tier: "UNTESTED" },
+          { mode: "Lifesteal", tier: "HT4" },
+          { mode: "Tank", tier: "HT4" },
+          { mode: "SMPKIT", tier: "HT4" }
+        ],
+        stats: {
+          kills: 376,
+          deaths: 143,
+          kdr: 3.60,
+          wins: 376,
+          losses: 98,
+          score: 3938,
+          recentMatches: ["Loss", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 6,
+        name: "01mubashir34",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/linhQjDQq1218/64",
+        mainMode: "NethPot",
+        modes: [
+          { mode: "NethPot", tier: "LT4" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Axe", tier: "LT5" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "DiaPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 301,
+          deaths: 198,
+          kdr: 3.81,
+          wins: 321,
+          losses: 109,
+          score: 3462,
+          recentMatches: ["Win", "Win", "Win", "Loss", "Win"]
+        }
+      },
+      {
+        rank: 7,
+        name: "ItzDeadlyFl4me_",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/d953c3fa3b00495f61bd05da9804099bb3c38cb3b90fccf352085f6af41bc10c",
+        mainMode: "Mace HT3",
+        modes: [
+          { mode: "Mace HT3", tier: "LT4" },
+          { mode: "NethPot", tier: "LT5" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "Tank", tier: "HT5" }
+        ],
+        stats: {
+          kills: 300,
+          deaths: 199,
+          kdr: 3.46,
+          wins: 322,
+          losses: 110,
+          score: 3460,
+          recentMatches: ["Win", "Loss", "Win", "Win", "Loss"]
+        }
+      },
+      {
+        rank: 8,
+        name: "Arko_Playz",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/Clown/64",
+        mainMode: "Tank",
+        modes: [
+          { mode: "Tank", tier: "HT3" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "Axe", tier: "LT5" },
+          { mode: "Lifesteal", tier: "LT4" },
+          { mode: "DiaPot", tier: "LT4" }
+        ],
+        stats: {
+          kills: 267,
+          deaths: 234,
+          kdr: 3.25,
+          wins: 398,
+          losses: 156,
+          score: 4237,
+          recentMatches: ["Win", "Win", "Loss", "Win", "Win"]
+        }
+      },
+      {
+        rank: 9,
+        name: "Swapnanil151",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/SenpaiSpider/64",
+        mainMode: "MACE HT3",
+        modes: [
+          { mode: "MACE HT3", tier: "HT3" },
+          { mode: "DiaPot", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "Tank", tier: "LT5" },
+          { mode: "NethPot", tier: "LT4" }
+        ],
+        stats: {
+          kills: 207,
+          deaths: 258,
+          kdr: 2.98,
+          wins: 208,
+          losses: 199,
+          score: 2268,
+          recentMatches: ["Loss", "Win", "Win", "Win", "Loss"]
+        }
+      },
+      {
+        rank: 10,
+        name: "SPACE_PRIME",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/Marlowww/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 200,
+          deaths: 265,
+          kdr: 3.28,
+          wins: 210,
+          losses: 236,
+          score: 2290,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 11,
+        name: "noobintheworld (Prime)",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/Wemmbu/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 185,
+          deaths: 245,
+          kdr: 3.15,
+          wins: 198,
+          losses: 220,
+          score: 2155,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 12,
+        name: "Goated_YT",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/noobkamaster99/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 176,
+          deaths: 230,
+          kdr: 3.08,
+          wins: 187,
+          losses: 215,
+          score: 2041,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 13,
+        name: "NIZOraX",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/Origin/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 165,
+          deaths: 210,
+          kdr: 2.95,
+          wins: 175,
+          losses: 198,
+          score: 1910,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 14,
+        name: "Addited_Gaming",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/ClownPierce/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 150,
+          deaths: 195,
+          kdr: 2.85,
+          wins: 162,
+          losses: 185,
+          score: 1765,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      },
+      {
+        rank: 15,
+        name: "NOT_SICKK",
+        region: "EU",
+        avatar: "https://mc-heads.net/avatar/SquidGame/64",
+        mainMode: "Crystal FFA",
+        modes: [
+          { mode: "Crystal FFA", tier: "LT3" },
+          { mode: "Tank", tier: "LT4" },
+          { mode: "Lifesteal", tier: "LT5" },
+          { mode: "SMPKIT", tier: "LT5" },
+          { mode: "NethPot", tier: "LT5" }
+        ],
+        stats: {
+          kills: 142,
+          deaths: 180,
+          kdr: 2.78,
+          wins: 155,
+          losses: 172,
+          score: 1685,
+          recentMatches: ["Win", "Win", "Win", "Win", "Win"]
+        }
+      }
+    ];
+
+    // Function to get PvP gamemode logo image
+    function getModeLogo(mode) {
+      const modeLower = mode.toLowerCase();
+      
+      if (modeLower.includes('nethpot')) {
+        return './icons/nethpot-Photoroom.png';
+      } else if (modeLower.includes('diapot') || modeLower.includes('diasmp')) {
+        return './icons/diapot-Photoroom.png';
+      } else if (modeLower.includes('crystal')) {
+        return './icons/crystal-Photoroom.png';
+      } else if (modeLower.includes('axe')) {
+        return './icons/axe-Photoroom.png';
+      } else if (modeLower.includes('mace')) {
+        return './icons/mace-Photoroom.png';
+      } else if (modeLower.includes('smpkit') || modeLower.includes('smp')) {
+        return './icons/diasmp-Photoroom.png';
+      } else if (modeLower.includes('tank')) {
+        return './icons/tank-Photoroom.png';
+      } else if (modeLower.includes('lifesteal')) {
+        return './icons/lifesteal-Photoroom.png';
+      } else if (modeLower.includes('sword')) {
+        return './icons/axe-Photoroom.png';
+      } else {
+        return './icons/nethpot-Photoroom.png';
+      }
+    }
+
+    // Function to get tier class
+    function getTierClass(tier) {
+      return `tier-${tier.toLowerCase()}`;
+    }
+
+    // Calculate summary statistics
+    function calculateSummaryStats() {
+      const totalPlayers = players.length;
+      const totalWins = players.reduce((sum, p) => sum + p.stats.wins, 0);
+      const avgKDR = (players.reduce((sum, p) => sum + p.stats.kdr, 0) / totalPlayers).toFixed(2);
+      
+      document.getElementById('totalPlayers').textContent = totalPlayers;
+      document.getElementById('totalWins').textContent = totalWins.toLocaleString();
+      document.getElementById('avgKDR').textContent = avgKDR;
+    }
+
+    // Get KDR color class
+    function getKDRClass(kdr) {
+      if (kdr >= 4.0) return 'kdr-high';
+      if (kdr >= 3.0) return 'kdr-mid';
+      return 'kdr-low';
+    }
+
+    // Tooltip functionality
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.style.cssText = `
+      position: fixed;
+      pointer-events: none;
+      background: rgba(8, 12, 12, 0.95);
+      color: #d7fff6;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.8);
+      font-size: 13px;
+      z-index: 9999;
+      border: 1px solid rgba(111,227,162,0.2);
+      transform: translate(-50%, -120%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 160ms ease, transform 160ms ease;
+    `;
+    document.body.appendChild(tooltip);
+
+    function showTooltip(e, text) {
+      tooltip.innerText = text;
+      tooltip.style.opacity = '1';
+      tooltip.style.transform = 'translate(-50%, -140%)';
+      positionTooltip(e);
+    }
+    
+    function moveTooltip(e) {
+      positionTooltip(e);
+    }
+    
+    function hideTooltip() {
+      tooltip.style.opacity = '0';
+      tooltip.style.transform = 'translate(-50%, -120%)';
+    }
+    
+    function positionTooltip(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+    }
+
+    // Render player rows with tier icons
+    function renderPlayers(playerList) {
+      const rankListEl = document.getElementById('rankList');
+      const noResultsEl = document.getElementById('noResults');
+      const loadingEl = document.getElementById('loading');
+      
+      // Clear existing content
+      rankListEl.innerHTML = '';
+      
+      if (playerList.length === 0) {
+        noResultsEl.classList.add('active');
+        loadingEl.classList.remove('active');
+        return;
+      }
+      
+      noResultsEl.classList.remove('active');
+      loadingEl.classList.remove('active');
+      
+      playerList.forEach((player, index) => {
+        const row = document.createElement('div');
+        row.className = 'player-row';
+        row.setAttribute('data-rank', player.rank);
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('role', 'button');
+        row.setAttribute('aria-label', `Player ${player.name}, rank ${player.rank}. Click to view stats`);
+        
+        // Create tier icons HTML
+        const tierIconsHTML = player.modes.map(mode => `
+          <div class="tier-icon ${getTierClass(mode.tier)}" data-mode="${mode.mode}" data-tier="${mode.tier}">
+            <div class="tier-circle">
+              <div class="tier-inner">
+                <div class="tier-symbol">
+                  <img src="${getModeLogo(mode.mode)}" alt="${mode.mode} ${mode.tier}" />
+                </div>
+              </div>
+            </div>
+            <div class="tier-label">${mode.tier}</div>
+          </div>
+        `).join('');
+        
+        // Create row content
+        row.innerHTML = `
+          <div class="player-rank">#${player.rank}</div>
+          
+          <div class="player-info">
+            <img src="${player.avatar.replace('/64', '/128')}" alt="${player.name} Minecraft skin" class="player-avatar" loading="lazy">
+            <div class="player-details">
+              <div class="player-name">
+                ${player.name}
+                <span style="font-size:12px;background:rgba(111,227,162,0.1);color:#6fe3a2;padding:2px 8px;border-radius:6px;font-weight:600">
+                  ${player.mainMode}
+                </span>
+              </div>
+              <div class="player-region">
+                <div class="region-flag" style="background:${player.region === 'NA' ? 'linear-gradient(90deg, #002868, #bf0a30)' : 'linear-gradient(90deg, #003399, #ffcc00)'};"></div>
+                ${player.region} • ${player.mainMode}
+              </div>
+            </div>
+          </div>
+          
+          <div class="tiers-container">
+            <div class="tiers-scroll-wrapper">
+              ${tierIconsHTML}
+            </div>
+          </div>
+          
+          <div class="player-stats">
+            <div class="stat-column">
+              <div class="stat-value-main">${player.stats.wins}</div>
+              <div class="stat-label-main">Wins</div>
+            </div>
+            
+            <div class="stat-column">
+              <div class="stat-value-main">${player.stats.losses}</div>
+              <div class="stat-label-main">Losses</div>
+            </div>
+            
+            <div class="stat-column">
+              <div class="stat-value-main ${getKDRClass(player.stats.kdr)}">${player.stats.kdr.toFixed(2)}</div>
+              <div class="stat-label-main">K/D Ratio</div>
+            </div>
+            
+            <div class="stat-column">
+              <div class="stat-value-main">${player.stats.score}</div>
+              <div class="stat-label-main">Overall Score</div>
+            </div>
+          </div>
+        `;
+        
+        // Add tooltip events to tier icons
+        setTimeout(() => {
+          const tierIcons = row.querySelectorAll('.tier-icon');
+          tierIcons.forEach(icon => {
+            const mode = icon.getAttribute('data-mode');
+            const tier = icon.getAttribute('data-tier');
+            
+            icon.addEventListener('mouseenter', (ev) => showTooltip(ev, `${mode}: ${tier}`));
+            icon.addEventListener('mousemove', (ev) => moveTooltip(ev));
+            icon.addEventListener('mouseleave', hideTooltip);
+          });
+        }, 100);
+        
+        // Add click event for opening player modal
+        row.addEventListener('click', () => openPlayerModal(player));
+        
+        // Keyboard accessibility
+        row.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openPlayerModal(player);
+          }
+        });
+        
+        rankListEl.appendChild(row);
+        
+        // Animate entry with delay
+        setTimeout(() => {
+          row.classList.add('show');
+        }, index * 80);
+      });
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    let filteredPlayers = [...players];
+    
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (searchTerm === '') {
+        filteredPlayers = [...players];
+      } else {
+        filteredPlayers = players.filter(player => 
+          player.name.toLowerCase().includes(searchTerm) ||
+          player.mainMode.toLowerCase().includes(searchTerm) ||
+          player.region.toLowerCase().includes(searchTerm) ||
+          player.modes.some(mode => mode.mode.toLowerCase().includes(searchTerm))
+        );
+      }
+      
+      renderPlayers(filteredPlayers);
+    });
+
+    // Sort functionality
+    const sortSelect = document.getElementById('sortSelect');
+    
+    sortSelect.addEventListener('change', (e) => {
+      const sortBy = e.target.value;
+      
+      filteredPlayers.sort((a, b) => {
+        switch(sortBy) {
+          case 'wins':
+            return b.stats.wins - a.stats.wins;
+          case 'kdr':
+            return b.stats.kdr - a.stats.kdr;
+          case 'score':
+            return b.stats.score - a.stats.score;
+          case 'kills':
+            return b.stats.kills - a.stats.kills;
+          default: // rank
+            return a.rank - b.rank;
+        }
+      });
+      
+      renderPlayers(filteredPlayers);
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('playerModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalTitle = document.getElementById('modalTitle');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function openPlayerModal(player) {
+      modalTitle.textContent = `${player.name} - Detailed Statistics`;
+      
+      // Create modal tier icons HTML
+      const modalTierIconsHTML = player.modes.map(mode => `
+        <div class="tier-icon ${getTierClass(mode.tier)}">
+          <div class="tier-circle">
+            <div class="tier-inner">
+              <div class="tier-symbol">
+                <img src="${getModeLogo(mode.mode)}" alt="${mode.mode} ${mode.tier}" />
+              </div>
+            </div>
+          </div>
+          <div class="tier-label">${mode.tier}</div>
+        </div>
+      `).join('');
+      
+      // Build modal content
+      modalBody.innerHTML = `
+        <div class="player-summary">
+          <img src="${player.avatar.replace('/64', '/256')}" alt="${player.name}" class="summary-avatar">
+          <div class="summary-rank" style="background:${player.rank <= 3 ? 
+            (player.rank === 1 ? 'var(--rank-1)' : player.rank === 2 ? 'var(--rank-2)' : 'var(--rank-3)') : 
+            'linear-gradient(135deg, #0f2a22, #12372e)'}; color:${player.rank <= 3 ? 
+            (player.rank === 1 ? '#8a6d00' : player.rank === 2 ? '#5a5a5a' : '#7a4d1a') : '#6fe3a2'}">
+            Rank #${player.rank}
+          </div>
+          <div>
+            <div class="modal-player-name">${player.name}</div>
+            <div class="modal-player-region">${player.region} • Main: ${player.mainMode}</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Total Wins</div>
+              <div class="stat-value positive">${player.stats.wins}</div>
+              <div class="stat-subtext">${((player.stats.wins / (player.stats.wins + player.stats.losses)) * 100).toFixed(1)}% Win Rate</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-label">Total Losses</div>
+              <div class="stat-value negative">${player.stats.losses}</div>
+              <div class="stat-subtext">Games Played: ${player.stats.wins + player.stats.losses}</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-label">K/D Ratio</div>
+              <div class="stat-value ${getKDRClass(player.stats.kdr)}">${player.stats.kdr.toFixed(2)}</div>
+              <div class="stat-subtext">${player.stats.kills} Kills / ${player.stats.deaths} Deaths</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-label">Overall Score</div>
+              <div class="stat-value neutral">${player.stats.score}</div>
+              <div class="stat-subtext">Based on wins, kills, and losses</div>
+            </div>
+          </div>
+          
+          <div class="modal-tiers">
+            <div class="modal-tiers-title">
+              <span>🏆</span> PvP Game Modes & Tiers
+            </div>
+            <div class="modal-tiers-container">
+              ${modalTierIconsHTML}
+            </div>
+          </div>
+          
+          <div style="background:rgba(255,255,255,0.02);border-radius:10px;padding:20px;">
+            <div style="font-size:14px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <span>📊</span> Performance Summary
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:12px;">
+              <div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Win/Loss Ratio</div>
+                <div style="font-size:18px;font-weight:600;color:#6fe3a2">${(player.stats.wins / player.stats.losses).toFixed(2)}</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Kills per Game</div>
+                <div style="font-size:18px;font-weight:600;color:#78c7ff">${(player.stats.kills / (player.stats.wins + player.stats.losses)).toFixed(1)}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="color:var(--muted);font-size:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              Last active: <strong style="color:white">${player.stats.lastActive}</strong>
+            </div>
+            <div style="font-size:12px;background:rgba(111,227,162,0.1);color:#6fe3a2;padding:4px 12px;border-radius:6px;">
+              ${player.region} Region
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Show modal with animation
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // Close modal events
+    closeBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // Initialize
+    window.addEventListener('load', () => {
+      calculateSummaryStats();
+      renderPlayers(players);
+      
+      // Simulate real-time update
+      setTimeout(() => {
+        document.getElementById('lastUpdated').textContent = 'Just now';
+      }, 2000);
+    });
+
+    // Accessibility improvements
+    document.addEventListener('focusin', (e) => {
+      const row = e.target.closest('.player-row');
+      if (row) {
+        row.style.outline = '2px solid var(--accent)';
+        row.style.outlineOffset = '2px';
+      }
+    });
+
+    document.addEventListener('focusout', (e) => {
+      const row = e.target.closest('.player-row');
+      if (row) {
+        row.style.outline = 'none';
+      }
+    });
+
+    // Reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReducedMotion.matches) {
+      document.documentElement.style.setProperty('--row-delay-step', '0ms');
+      document.documentElement.style.setProperty('--transition', '100ms ease');
+    }
+
+    // Auto-refresh simulation
+    setInterval(() => {
+      const lastUpdated = document.getElementById('lastUpdated');
+      const currentText = lastUpdated.textContent;
+      
+      if (currentText === 'Live' || currentText === 'Just now') {
+        return;
+      }
+      
+      // Simulate update every 30 seconds
+      const now = new Date();
+      const minutes = now.getMinutes();
+      
+      if (minutes % 2 === 0) {
+        lastUpdated.textContent = 'Live';
+        setTimeout(() => {
+          lastUpdated.textContent = `${minutes} min ago`;
+        }, 3000);
+      }
+    }, 30000);
+
+  </script>
+</body>
+</html>
+
