@@ -253,8 +253,9 @@
             font-size: 0.9rem;
         }
 
-        /* Navigation */
-        .navbar {
+        /* ===== DESKTOP NAVBAR ===== */
+        /* Only visible on desktop (min-width: 769px) */
+        .desktop-navbar {
             position: fixed;
             top: 0;
             left: 0;
@@ -268,7 +269,7 @@
             border-bottom: 1px solid var(--glass-light);
         }
 
-        .navbar.scrolled {
+        .desktop-navbar.scrolled {
             padding: 15px 0;
             box-shadow: var(--shadow);
             background-color: var(--glass);
@@ -297,23 +298,23 @@
             font-size: 1.8rem;
         }
 
-        .nav-links {
+        .desktop-nav-links {
             display: flex;
             list-style: none;
         }
 
-        .nav-links li {
+        .desktop-nav-links li {
             margin-left: 30px;
         }
 
-        .nav-links a {
+        .desktop-nav-links a {
             font-weight: 500;
             position: relative;
             padding: 5px 0;
             transition: var(--transition);
         }
 
-        .nav-links a::after {
+        .desktop-nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -324,15 +325,15 @@
             transition: var(--transition);
         }
 
-        .nav-links a:hover::after {
+        .desktop-nav-links a:hover::after {
             width: 100%;
         }
 
-        .nav-links a.active::after {
+        .desktop-nav-links a.active::after {
             width: 100%;
         }
 
-        .theme-toggle {
+        .desktop-theme-toggle {
             background: var(--glass-light);
             border: none;
             color: var(--light);
@@ -348,7 +349,7 @@
             justify-content: center;
         }
 
-        .theme-toggle:hover {
+        .desktop-theme-toggle:hover {
             background: var(--primary);
             color: var(--lighter);
             transform: rotate(30deg);
@@ -921,34 +922,57 @@
             font-size: 0.9rem;
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
+        /* ===== MOBILE SIDEBAR ===== */
+        /* Only visible on mobile (max-width: 768px) */
+        .mobile-navbar {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+            z-index: 1001;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            background-color: var(--glass);
+            border-bottom: 1px solid var(--glass-light);
+        }
+
+        .mobile-navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .mobile-menu-btn {
             position: relative;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: none;
-            border: none;
+            background: var(--glass-light);
+            border: 1px solid var(--glass-light);
+            border-radius: var(--border-radius-sm);
             cursor: pointer;
-            z-index: 1001;
+            z-index: 1002;
+            display: flex;
         }
 
         .mobile-menu-btn span {
             display: block;
-            width: 28px;
-            height: 3px;
+            width: 24px;
+            height: 2px;
             background-color: var(--light);
             border-radius: 3px;
-            margin: 3px 0;
+            margin: 2px 0;
             transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
             transform-origin: center;
         }
 
         .mobile-menu-btn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
+            transform: rotate(45deg) translate(5px, 5px);
         }
 
         .mobile-menu-btn.active span:nth-child(2) {
@@ -957,107 +981,299 @@
         }
 
         .mobile-menu-btn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
+            transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        .mobile-menu {
+        .mobile-sidebar {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 85%;
-            max-width: 380px;
+            width: 320px;
+            max-width: 85%;
             height: 100vh;
             background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            padding: 120px 35px 50px;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4);
-            border-left: 1px solid var(--glass-light);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 2000;
+            transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
             display: flex;
             flex-direction: column;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+            border-left: 1px solid var(--glass-light);
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .mobile-menu.active {
+        .mobile-sidebar.active {
             right: 0;
         }
 
-        .mobile-menu .nav-links {
-            flex-direction: column;
-            gap: 30px;
-            margin-bottom: 50px;
+        /* Mobile Sidebar Header */
+        .mobile-sidebar-header {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-light);
+            background: rgba(0, 0, 0, 0.2);
         }
 
-        .mobile-menu .nav-links li {
+        .mobile-sidebar-header .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-sidebar-header .logo span {
+            color: var(--light);
+        }
+
+        .mobile-close {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--glass-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--light);
+            font-size: 1.2rem;
+        }
+
+        .mobile-close:hover {
+            background: var(--primary);
+            color: var(--lighter);
+            transform: rotate(90deg);
+        }
+
+        /* Mobile Navigation Links */
+        .mobile-nav-links {
+            list-style: none;
+            padding: 20px 0;
             margin: 0;
+            flex: 1;
+        }
+
+        .mobile-nav-links li {
+            margin: 0;
+            padding: 0;
             opacity: 0;
             transform: translateX(30px);
             transition: all 0.4s ease;
         }
 
-        .mobile-menu.active .nav-links li {
+        .mobile-sidebar.active .mobile-nav-links li {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .mobile-menu.active .nav-links li:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-menu.active .nav-links li:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-menu.active .nav-links li:nth-child(3) { transition-delay: 0.2s; }
-        .mobile-menu.active .nav-links li:nth-child(4) { transition-delay: 0.25s; }
-        .mobile-menu.active .nav-links li:nth-child(5) { transition-delay: 0.3s; }
+        /* Staggered animation delays */
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.3s; }
+        .mobile-sidebar.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.35s; }
 
-        .mobile-menu .nav-links a {
-            font-size: 1.4rem;
-            font-weight: 600;
-            display: block;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--glass-light);
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 20px 25px;
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
             transition: var(--transition);
+            border-left: 4px solid transparent;
+            margin: 5px 0;
         }
 
-        .mobile-menu .nav-links a:hover {
+        .mobile-nav-link:hover {
+            background: var(--glass-light);
+            border-left-color: var(--primary);
+        }
+
+        .mobile-nav-link.active {
+            background: rgba(46, 204, 113, 0.1);
+            border-left-color: var(--primary);
             color: var(--primary);
-            border-color: var(--primary);
-            padding-left: 15px;
         }
 
-        .mobile-menu .theme-toggle {
-            margin: auto 0 0;
+        .mobile-nav-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--glass-light);
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 15px;
             font-size: 1.2rem;
-            padding: 15px;
-            background: var(--glass-light);
-            border-radius: var(--border-radius);
-            width: 100%;
             transition: var(--transition);
-            height: auto;
-            border-radius: var(--border-radius);
         }
 
-        .mobile-menu .theme-toggle:hover {
+        .mobile-nav-link:hover .mobile-nav-icon,
+        .mobile-nav-link.active .mobile-nav-icon {
             background: var(--primary);
             color: var(--lighter);
+            transform: scale(1.1);
         }
 
-        .overlay {
+        .youtube-icon {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+        }
+
+        .discord-icon {
+            background: rgba(114, 137, 218, 0.1);
+            color: #7289da;
+        }
+
+        .mobile-nav-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .mobile-nav-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0;
+            transform: scale(0);
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link.active .mobile-nav-indicator {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .external-icon {
+            margin-left: 10px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Sidebar Footer */
+        .mobile-sidebar-footer {
+            padding: 25px;
+            border-top: 1px solid var(--glass-light);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-theme-toggle {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--glass-light);
+            border: 1px solid var(--glass-light);
+            border-radius: var(--border-radius);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+
+        .mobile-theme-toggle:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--lighter);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle-text {
+            font-weight: 600;
+            flex: 1;
+            text-align: left;
+        }
+
+        .theme-toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: var(--darker);
+            border-radius: 13px;
+            position: relative;
+            border: 2px solid var(--glass-light);
+        }
+
+        .switch-handle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] .switch-handle {
+            left: calc(100% - 19px);
+        }
+
+        .mobile-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .mobile-social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.3rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .mobile-social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .mobile-social-link.youtube-link:hover {
+            background: #ff0000;
+            color: white;
+        }
+
+        .mobile-social-link.discord-link:hover {
+            background: #7289da;
+            color: white;
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
-            z-index: 999;
+            z-index: 1999;
             opacity: 0;
             pointer-events: none;
-            transition: var(--transition);
+            transition: var(--transition-slow);
         }
 
-        .overlay.active {
+        .mobile-overlay.active {
             opacity: 1;
             pointer-events: all;
         }
@@ -1087,12 +1303,14 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links, .theme-toggle:not(.mobile-menu .theme-toggle) {
-                display: none;
+            /* Hide desktop navbar on mobile */
+            .desktop-navbar {
+                display: none !important;
             }
             
-            .mobile-menu-btn {
-                display: flex;
+            /* Show mobile navbar on mobile */
+            .mobile-navbar {
+                display: block;
             }
             
             .hero {
@@ -1121,6 +1339,20 @@
             
             h2 {
                 font-size: 2.2rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            /* Hide mobile navbar on desktop */
+            .mobile-navbar,
+            .mobile-sidebar,
+            .mobile-overlay {
+                display: none !important;
+            }
+            
+            /* Show desktop navbar on desktop */
+            .desktop-navbar {
+                display: block;
             }
         }
 
@@ -1154,9 +1386,20 @@
                 min-width: 100%;
             }
             
-            .mobile-menu {
-                width: 85%;
-                padding: 100px 25px 40px;
+            .mobile-sidebar {
+                width: 280px;
+                max-width: 90%;
+            }
+            
+            .mobile-nav-link {
+                padding: 18px 20px;
+            }
+            
+            .mobile-nav-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+                margin-right: 12px;
             }
 
             .files-grid {
@@ -1283,28 +1526,40 @@
         <canvas class="particles"></canvas>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- ===== DESKTOP NAVBAR ===== -->
+    <!-- Only visible on screens larger than 768px -->
+    <nav class="desktop-navbar">
         <div class="container navbar-container">
             <a href="#" class="logo">
                 <i class="fas fa-gamepad logo-icon"></i>
                 Ayush<span>Gaming</span>
             </a>
             
-            <ul class="nav-links">
+            <ul class="desktop-nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#files">Files</a></li>
                 <li><a href="tierlist.html" rel="noopener noreferrer">TierList</a></li>
+                <li><a href="games.html" rel="noopener noreferrer">Gaming</a></li>
                 <li><a href="#servers">Servers</a></li>
                 <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
                 <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
             </ul>
             
-            <button class="theme-toggle" id="theme-toggle">
+            <button class="desktop-theme-toggle" id="desktop-theme-toggle">
                 <i class="fas fa-moon"></i>
             </button>
+        </div>
+    </nav>
+
+    <!-- ===== MOBILE NAVBAR ===== -->
+    <!-- Only visible on screens smaller than 769px -->
+    <nav class="mobile-navbar">
+        <div class="mobile-navbar-container">
+            <a href="#" class="logo">
+                <i class="fas fa-gamepad logo-icon"></i>
+                Ayush<span>Gaming</span>
+            </a>
             
-            <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn" id="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -1313,24 +1568,121 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu">
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#files">Files</a></li>
-            <li><a href="tierlist.html" target="_blank" rel="noopener noreferrer">TierList</a></li>
-            <li><a href="#servers">Servers</a></li>
-            <li><a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a></li>
-            <li><a href="https://discord.gg/9y5DjZCAjb">Discord</a></li>
+    <!-- ===== MOBILE SIDEBAR ===== -->
+    <!-- Only visible on mobile when menu is opened -->
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="mobile-sidebar-header">
+            <div class="logo">
+                <i class="fas fa-gamepad logo-icon"></i>
+                Ayush<span>Gaming</span>
+            </div>
+            <div class="mobile-close" id="mobile-close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li>
+                <a href="#home" class="mobile-nav-link active">
+                    <div class="mobile-nav-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <span class="mobile-nav-text">Home</span>
+                    <div class="mobile-nav-indicator"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#files" class="mobile-nav-link">
+                    <div class="mobile-nav-icon">
+                        <i class="fas fa-file-download"></i>
+                    </div>
+                    <span class="mobile-nav-text">Files</span>
+                    <div class="mobile-nav-indicator"></div>
+                </a>
+            </li>
+            <li>
+                <a href="tierlist.html" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">
+                    <div class="mobile-nav-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <span class="mobile-nav-text">TierList</span>
+                    <div class="mobile-nav-indicator"></div>
+                    <span class="external-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="games.html" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">
+                    <div class="mobile-nav-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <span class="mobile-nav-text">Gaming</span>
+                    <div class="mobile-nav-indicator"></div>
+                    <span class="external-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#servers" class="mobile-nav-link">
+                    <div class="mobile-nav-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <span class="mobile-nav-text">Servers</span>
+                    <div class="mobile-nav-indicator"></div>
+                </a>
+            </li>
+            <li>
+                <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">
+                    <div class="mobile-nav-icon youtube-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <span class="mobile-nav-text">YouTube</span>
+                    <div class="mobile-nav-indicator"></div>
+                    <span class="external-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.gg/9y5DjZCAjb" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">
+                    <div class="mobile-nav-icon discord-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <span class="mobile-nav-text">Discord</span>
+                    <div class="mobile-nav-indicator"></div>
+                    <span class="external-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+                </a>
+            </li>
         </ul>
         
-        <button class="theme-toggle" id="mobile-theme-toggle">
-            <i class="fas fa-moon"></i> Switch to Light Mode
-        </button>
+        <div class="mobile-sidebar-footer">
+            <button class="mobile-theme-toggle" id="mobile-theme-toggle">
+                <div class="theme-toggle-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <span class="theme-toggle-text">Dark Mode</span>
+                <div class="theme-toggle-switch">
+                    <div class="switch-handle"></div>
+                </div>
+            </button>
+            
+            <div class="mobile-social-links">
+                <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG" class="mobile-social-link youtube-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://discord.gg/9y5DjZCAjb" class="mobile-social-link discord-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!-- Overlay for Mobile Menu -->
-    <div class="overlay" id="overlay"></div>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -1459,7 +1811,8 @@
             <div class="footer-links">
                 <a href="#home">Home</a>
                 <a href="#files">Files</a>
-                <a href="https://ayush1234a-tech.github.io/TierList/" target="_blank" rel="noopener noreferrer">TierList</a>
+                <a href="tierlist.html" target="_blank" rel="noopener noreferrer">TierList</a>
+                <a href="games.html" target="_blank" rel="noopener noreferrer">Gaming</a>
                 <a href="#servers">Servers</a>
                 <a href="https://youtube.com/@ayushgaming2012?si=TgKToAS-1C94JuhG">YouTube</a>
                 <a href="https://discord.gg/9y5DjZCAjb">Discord</a>
@@ -1483,9 +1836,8 @@
         let currentSearch = '';
 
         // ===== DOM ELEMENTS =====
-        const navbar = document.querySelector('.navbar');
-        const themeToggle = document.getElementById('theme-toggle');
-        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const desktopNavbar = document.querySelector('.desktop-navbar');
+        const desktopThemeToggle = document.getElementById('desktop-theme-toggle');
         const searchInput = document.getElementById('search-input');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const filesGrid = document.getElementById('files-grid');
@@ -1493,9 +1845,14 @@
         const videosGrid = document.getElementById('videos-grid');
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notification-text');
+        
+        // Mobile elements
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const overlay = document.getElementById('overlay');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileClose = document.getElementById('mobile-close');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
         // ===== DATA =====
         const filesData = [
@@ -1760,6 +2117,12 @@
             
             // Load saved theme
             loadSavedTheme();
+            
+            // Initialize mobile menu
+            initMobileMenu();
+            
+            // Update active link on load
+            updateActiveLink();
         });
 
         // ===== FILE FUNCTIONS =====
@@ -2112,15 +2475,18 @@
             
             document.documentElement.setAttribute('data-theme', newTheme);
             
-            // Update icons
-            const themeIcons = document.querySelectorAll('.theme-toggle i');
-            themeIcons.forEach(icon => {
-                icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            });
+            // Update desktop theme icon
+            const desktopIcon = desktopThemeToggle.querySelector('i');
+            if (desktopIcon) {
+                desktopIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
             
-            // Update mobile theme toggle text
-            if (mobileThemeToggle) {
-                mobileThemeToggle.innerHTML = `<i class="${newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${newTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
+            // Update mobile theme text and icon
+            const mobileIcon = mobileThemeToggle.querySelector('.theme-toggle-icon i');
+            const mobileText = mobileThemeToggle.querySelector('.theme-toggle-text');
+            if (mobileIcon && mobileText) {
+                mobileIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                mobileText.textContent = newTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
             }
             
             // Save preference to localStorage
@@ -2131,49 +2497,108 @@
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
             
-            // Update theme icons based on saved theme
-            const themeIcons = document.querySelectorAll('.theme-toggle i');
-            themeIcons.forEach(icon => {
-                icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            });
+            // Update desktop theme icon
+            const desktopIcon = desktopThemeToggle.querySelector('i');
+            if (desktopIcon) {
+                desktopIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
             
-            // Update mobile theme toggle text
-            if (mobileThemeToggle) {
-                mobileThemeToggle.innerHTML = `<i class="${savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}"></i> Switch to ${savedTheme === 'dark' ? 'Light' : 'Dark'} Mode`;
+            // Update mobile theme text and icon
+            const mobileIcon = mobileThemeToggle.querySelector('.theme-toggle-icon i');
+            const mobileText = mobileThemeToggle.querySelector('.theme-toggle-text');
+            if (mobileIcon && mobileText) {
+                mobileIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                mobileText.textContent = savedTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
             }
         }
 
         // ===== MOBILE MENU FUNCTIONS =====
         function toggleMobileMenu() {
             mobileMenuBtn.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            mobileSidebar.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileSidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function initMobileMenu() {
+            // Mobile menu button click
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Close button click
+            mobileClose.addEventListener('click', toggleMobileMenu);
+            
+            // Overlay click
+            mobileOverlay.addEventListener('click', toggleMobileMenu);
+            
+            // Mobile nav links click
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // For external links, don't close menu immediately
+                    if (this.getAttribute('href').startsWith('http') || this.hasAttribute('target')) {
+                        setTimeout(toggleMobileMenu, 300);
+                    } else {
+                        toggleMobileMenu();
+                    }
+                    
+                    // Update active link
+                    updateActiveLink(this.getAttribute('href'));
+                });
+            });
+            
+            // Mobile theme toggle
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+            
+            // Close menu on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileSidebar.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        }
+
+        // ===== ACTIVE LINK FUNCTIONS =====
+        function updateActiveLink(clickedHref = null) {
+            // Get current hash or use clicked link
+            const currentHash = clickedHref || window.location.hash || '#home';
+            
+            // Update desktop nav links
+            document.querySelectorAll('.desktop-nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update mobile nav links
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update footer links
+            document.querySelectorAll('.footer-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active');
+                }
+            });
         }
 
         // ===== EVENT LISTENER SETUP =====
         function setupEventListeners() {
-            // Navbar scroll effect
+            // Desktop navbar scroll effect
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
+                if (desktopNavbar && window.scrollY > 50) {
+                    desktopNavbar.classList.add('scrolled');
+                } else if (desktopNavbar) {
+                    desktopNavbar.classList.remove('scrolled');
                 }
             });
 
-            // Theme toggle
-            themeToggle.addEventListener('click', toggleTheme);
-            mobileThemeToggle.addEventListener('click', toggleTheme);
-
-            // Mobile menu
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            overlay.addEventListener('click', toggleMobileMenu);
-
-            // Close mobile menu when clicking on a link
-            document.querySelectorAll('.mobile-menu a').forEach(link => {
-                link.addEventListener('click', toggleMobileMenu);
-            });
+            // Desktop theme toggle
+            desktopThemeToggle.addEventListener('click', toggleTheme);
 
             // File category filtering
             filterBtns.forEach(btn => {
@@ -2202,27 +2627,34 @@
                 }
             });
 
-            // Smooth scrolling for anchor links
+            // Smooth scrolling for anchor links (excluding external links)
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
                     
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
+                    const targetElement = document.querySelector(href);
                     if (targetElement) {
+                        e.preventDefault();
                         window.scrollTo({
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                        
+                        // Update active link
+                        updateActiveLink(href);
                     }
                 });
             });
 
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            // Update active link on hash change
+            window.addEventListener('hashchange', () => {
+                updateActiveLink();
+            });
+
+            // Close mobile menu when window is resized to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && mobileSidebar.classList.contains('active')) {
                     toggleMobileMenu();
                 }
             });
@@ -2230,4 +2662,3 @@
     </script>
 </body>
 </html>
-
