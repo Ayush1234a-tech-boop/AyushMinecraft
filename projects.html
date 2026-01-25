@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ayush Gaming - Mods, Servers & More</title>
+<link href="ytlogo.jpg" rel="icon" type="image/x-icon"/>
+</head>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ayush Gaming - Mods, Servers & More</title>
+<link rel="icon" type="image/x-icon" href="ytlogo.jpg">
+<style>
+  :root {
+    --primary: #3a0ca3;
+    --primary-light: #4361ee;
+    --secondary: #7209b7;
+    --success: #4cc9f0;
+    --danger: #f72585;
+    --warning: #f8961e;
+    --info: #4895ef;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --border: #e9ecef;
+    --text: #2d3748;
+    --text-light: #718096;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --sidebar-width: 260px;
+    --header-height: 70px;
+    --transition: all 0.3s ease;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background-color: #f5f7fb;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+  
+  /* Layout */
+  .container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--header-height) 1fr;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    grid-row: 1 / 3;
+    background: linear-gradient(180deg, var(--dark) 0%, #16213e 100%);
+    color: white;
+    overflow-y: auto;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    position: relative;
+  }
+  
+  .sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+  }
+  
+  .logo {
+    padding: 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 10px;
+  }
+  
+  .logo h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .logo span {
+    color: var(--primary-light);
+    background: linear-gradient(45deg, var(--primary-light), var(--success));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 4px;
+  }
+  
+  .nav-menu {
+    padding: 10px 0;
+  }
+  
+  .menu-heading {
+    padding: 16px 25px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+  }
+  
+  .nav-item {
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+    border-left: 4px solid transparent;
+    margin: 4px 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .nav-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: var(--transition);
+  }
+  
+  .nav-item:hover::after {
+    width: 100%;
+  }
+  
+  .nav-item:hover,
+  .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-left-color: var(--primary-light);
+  }
+  
+  .nav-item.active {
+    background: linear-gradient(90deg, rgba(67, 97, 238, 0.2), transparent);
+    font-weight: 500;
+  }
+  
+  .nav-item i {
+    width: 24px;
+    margin-right: 12px;
+    font-size: 18px;
+    text-align: center;
+    transition: var(--transition);
+  }
+  
+  .nav-item:hover i {
+    transform: translateY(-2px);
+  }
+  
+  /* Header */
+  .header {
+    grid-column: 2;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: var(--shadow-sm);
+    z-index: 100;
+    position: sticky;
+    top: 0;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--light);
+    border-radius: 50px;
+    padding: 8px 18px;
+    flex: 0 0 420px;
+    transition: var(--transition);
+    border: 1px solid transparent;
+  }
+  
+  .search-bar:focus-within {
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.1);
+    border-color: rgba(67, 97, 238, 0.3);
+  }
+  
+  .search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 6px 10px;
+    color: var(--text);
+    font-size: 14px;
+  }
+  
+  .search-bar i {
+    color: var(--text-light);
+    font-size: 16px;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification {
+    position: relative;
+    margin: 0 15px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+  }
+  
+  .notification:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+  }
+  
+  .notification i {
+    font-size: 18px;
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+  
+  .notification:hover i {
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+  
+  .notification .badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background-color: var(--danger);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(247, 37, 133, 0.2);
+    border: 2px solid white;
+    font-weight: 600;
+  }
+  
+  .user-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    margin-left: 10px;
+  }
+  
+  .user-profile:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+  }
+  
+  .profile-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    margin-right: 12px;
+    box-shadow: 0 3px 8px rgba(67, 97, 238, 0.2);
+    font-size: 16px;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .user-role {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  
+  /* Main Content */
+  .main-content {
+    grid-column: 2;
+    padding: 25px 30px;
+    overflow-y: auto;
+  }
+  
+  .page-title {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark);
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: 10px;
+  }
+  
+  .action-buttons .btn {
+    margin-left: 12px;
+  }
+  
+  /* Dashboard Cards */
+  .stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  .stat-card {
+    background-color: white;
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+  
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    opacity: 0.8;
+    transition: var(--transition);
+  }
+  
+  .stat-card:nth-child(1)::before {
+    background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+  }
+  
+  .stat-card:nth-child(2)::before {
+    background: linear-gradient(to bottom, var(--info), var(--success));
+  }
+  
+  .stat-card:nth-child(3)::before {
+    background: linear-gradient(to bottom, var(--success), #36d399);
+  }
+  
+  .stat-card:nth-child(4)::before {
+    background: linear-gradient(to bottom, var(--warning), #ffbd59);
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+  
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+  }
+  
+  .stat-card:hover .card-icon {
+    transform: scale(1.1);
+  }
+  
+  .card-icon.purple {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+  }
+  
+  .card-icon.blue {
+    background: linear-gradient(135deg, var(--info), #4cc9f0);
+  }
+  
+  .card-icon.green {
+    background: linear-gradient(135deg, var(--success), #36d399);
+  }
+  
+  .card-icon.orange {
+    background: linear-gradient(135deg, var(--warning), #ffbd59);
+  }
+  
+  .card-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    transition: var(--transition);
+  }
+  
+  .stat-card:hover .card-value {
+    color: var(--primary);
+  }
+  
+  .card-label {
+    color: var(--text-light);
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .card-change {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 8px 0 0;
+    font-weight: 500;
+  }
+  
+  .card-change i {
+    margin-right: 6px;
+    font-size: 16px;
+  }
+  
+  .card-change.positive {
+    color: var(--success);
+  }
+  
+  .card-change.negative {
+    color: var(--danger);
+  }
+  
+  /* Data Table */
+  .table-card {
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 25px;
+    animation: fadeInUp 0.7s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+  
+  .card-title {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(248, 249, 250, 0.5);
+  }
+  
+  .card-title h3 {
+    font-size: 19px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-title h3 i {
+    margin-right: 10px;
+    color: var(--primary);
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 16px 24px;
+    text-align: left;
+  }
+  
+  .data-table th {
+    font-weight: 600;
+    color: var(--text);
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 1px 0 0 var(--border);
+  }
+  
+  .data-table th:first-child {
+    border-top-left-radius: 8px;
+  }
+  
+  .data-table th:last-child {
+    border-top-right-radius: 8px;
+  }
+  
+  .data-table td {
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .data-table tbody tr {
+    transition: var(--transition);
+  }
+  
+  .data-table tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.03);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  }
+  
+  .status {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  
+  .status i {
+    margin-right: 6px;
+    font-size: 12px;
+  }
+  
+  .status.active {
+    background-color: rgba(76, 201, 240, 0.15);
+    color: #0891b2;
+    border: 1px solid rgba(76, 201, 240, 0.3);
+  }
+  
+  .status.pending {
+    background-color: rgba(248, 150, 30, 0.15);
+    color: #d97706;
+    border: 1px solid rgba(248, 150, 30, 0.3);
+  }
+  
+  .status.cancelled {
+    background-color: rgba(247, 37, 133, 0.15);
+    color: #db2777;
+    border: 1px solid rgba(247, 37, 133, 0.3);
+  }
+  
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+  
+  .btn:hover::after {
+    left: 100%;
+  }
+  
+  .btn i {
+    margin-right: 8px;
+    font-size: 16px;
+    transition: var(--transition);
+  }
+  
+  .btn:hover i {
+    transform: translateX(2px);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(58, 12, 163, 0.2);
+  }
+  
+  .btn-outline {
+    border: 2px solid var(--primary-light);
+    color: var(--primary);
+    background-color: transparent;
+  }
+  
+  .btn-outline:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(58, 12, 163, 0.2);
+  }
+  
+  .btn-sm {
+    padding: 7px 14px;
+    font-size: 13px;
+    border-radius: var(--radius-sm);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Media Queries */
+  @media (max-width: 1200px) {
+    .stats-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .container {
+      grid-template-columns: 0 1fr;
+    }
+  
+    .sidebar {
+      transform: translateX(-100%);
+      position: fixed;
+      height: 100vh;
+      z-index: 1001;
+    }
+  
+    .sidebar.active {
+      transform: translateX(0);
+      box-shadow: var(--shadow-lg);
+    }
+  
+    .header {
+      padding: 0 20px;
+    }
+  
+    .main-content {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .search-bar {
+      display: none;
+    }
+  
+    .stats-cards {
+      grid-template-columns: 1fr;
+    }
+  
+    .user-role {
+      display: none;
+    }
+  
+    .data-table th,
+    .data-table td {
+      padding: 15px;
+    }
+  
+    .title {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .header-actions {
+      margin-left: auto;
+    }
+  
+    .notification {
+      margin: 0 8px;
+    }
+  
+    .user-info {
+      display: none;
+    }
+  
+    .profile-img {
+      margin-right: 0;
+    }
+  
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .action-buttons .btn {
+      margin: 5px 0;
+    }
+  }
+  .fas {
+    font-size: 18px;
+  }
+     
+          a:link {
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+          }
+          
+          a:visited {
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+          }
+          
+          a:hover {
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+          }
+          
+          a:active {
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+          }
+                 
+      
+            .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .data-table {
+      min-width: 600px;
+    }
+  
+    .table-card {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+.mobile-menu-btn {
+display: none;
+font-size: 22px;
+cursor: pointer;
+}
+
+@media (max-width: 992px) {
+.mobile-menu-btn {
+display: block;
+margin-right: 20px;
+}
+}
+
+@media (max-width: 768px) {
+.table-card {
+overflow-x: auto;
+}
+
+.data-table {
+width: 700px;
+}
+}
+
+.close-btn {
+display: none;
+font-size: 22px;
+text-align: right;
+padding: 20px;
+cursor: pointer;
+}
+
+@media (max-width: 992px) {
+.close-btn {
+display: block;
+}
+}
+/* Add New Button Animation */
+#addNewBtn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+  }
+  
+  #addNewBtn .btn-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+    transform: scale(0);
+    border-radius: var(--radius);
+    opacity: 0;
+    z-index: -1;
+  }
+  
+  #addNewBtn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(58, 12, 163, 0.3);
+  }
+  
+  #addNewBtn:hover .btn-pulse {
+    animation: pulse 1.5s infinite;
+  }
+  
+  #addNewBtn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.7;
+    }
+    70% {
+      transform: scale(1.1);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.1);
+      opacity: 0;
+    }
+  }
+  
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+  }
+  
+  .modal-overlay.active .modal-content {
+    transform: translateY(0);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  
+  .modal-close {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+  
+  .modal-close:hover {
+    color: var(--danger);
+    transform: rotate(90deg);
+  }
+  
+  .modal-body {
+    margin-bottom: 25px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    transition: var(--transition);
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .notification-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3000;
+  }
+  
+  .notification-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .notification-toast.success {
+    border-left: 4px solid var(--success);
+  }
+  
+  .notification-toast.error {
+    border-left: 4px solid var(--danger);
+  }
+  
+  .notification-toast i {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .notification-toast.success i {
+    color: var(--success);
+  }
+  
+  .notification-toast.error i {
+    color: var(--danger);
+  }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+        
+<body>
+<div class="container">
+<!-- Sidebar -->
+<div class="sidebar"><div class="close-btn" onclick="toggleSidebar()"><i class="fas fa-times"></i></div>
+<div class="logo">
+<h1>Projects<span>Panel</span></h1>
+</div>
+<div class="nav-menu">
+<div class="menu-heading">Main</div>
+<div class="nav-item active">
+<i class="fas fa-chart-pie"></i>
+<span>Dashboard</span>
+</div>
+<div class="nav-item">
+<i class="fas fa-users"></i>
+<a href="https://ayushop.netlify.app/"><span>Return to HUB</span></a>
+</div>
+<div class="menu-heading">Only For Admin</div>
+<div class="nav-item">
+<i class="fas fa-cog"></i>
+<span>Settings</span>
+</div>
+<div class="nav-item">
+<i class="fas fa-bell"></i>
+<span>Notifications</span>
+</div>
+<div class="nav-item">
+<i class="fas fa-shield-alt"></i>
+<span>Security</span>
+</div>
+</div>
+</div>
+<!-- Header -->
+<div class="header"><div class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+<form class="search-bar" action="https://www.google.com/search" method="GET" target="_blank">
+  <i class="fas fa-search"></i>
+  <input placeholder="Search..." type="text" name="q" />
+</form>
+<div class="header-actions">
+
+
+
+
+<div class="notification">
+<a href="https://mail.google.com/mail/u/0/#inbox"><i class="fas fa-envelope"></i></a>
+<div class="badge">5</div>
+</div>
+<div class="user-profile">
+<div class="profile-img">AN</div>
+<div class="user-info">
+<div class="user-name">Anushtup Nath</div>
+<div class="user-role">Administrator</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<div class="page-title">
+<div class="title">Projects Dashboard</div>
+<div class="action-buttons">
+<!-- Add this to your existing HTML file, replacing the current export button section -->
+<button class="btn btn-outline" id="exportBtn" onclick="exportProjects()">
+  <i class="fas fa-download"></i>
+  <span class="btn-text">Export</span>
+  <span class="export-pulse"></span>
+</button>
+
+<!-- Add this CSS to your style section -->
+<style>
+  /* Export Button Animation */
+  #exportBtn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+  }
+  
+  #exportBtn .export-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+    transform: scale(0);
+    border-radius: var(--radius);
+    opacity: 0;
+    z-index: -1;
+  }
+  
+  #exportBtn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(58, 12, 163, 0.3);
+  }
+  
+  #exportBtn:hover .export-pulse {
+    animation: pulse 1.5s infinite;
+  }
+  
+  #exportBtn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  
+  /* Export Animation */
+  @keyframes exportSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .export-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .export-loading.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .export-spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-light);
+    animation: exportSpin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+  }
+  
+  .export-progress {
+    width: 200px;
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  .export-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    transition: width 0.3s ease;
+  }
+  
+  .export-complete {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3000;
+    border-left: 4px solid var(--success);
+  }
+  
+  .export-complete.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .export-complete i {
+    margin-right: 10px;
+    font-size: 20px;
+    color: var(--success);
+  }
+</style>
+
+<!-- Add this JavaScript to your script section -->
+<script>
+function exportProjects() {
+  // Show loading animation
+  const loading = document.createElement('div');
+  loading.className = 'export-loading';
+  loading.innerHTML = `
+    <div class="export-spinner"></div>
+    <h3 style="color: white;">Preparing Export...</h3>
+    <div class="export-progress">
+      <div class="export-progress-bar"></div>
+    </div>
+  `;
+  document.body.appendChild(loading);
+  
+  setTimeout(() => {
+    loading.classList.add('active');
+    
+    // Simulate progress
+    const progressBar = document.querySelector('.export-progress-bar');
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+      progress += 5 + Math.random() * 10;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(progressInterval);
+        completeExport();
+      }
+      progressBar.style.width = `${progress}%`;
+    }, 200);
+  }, 10);
+  
+  function completeExport() {
+    // Hide loading
+    loading.classList.remove('active');
+    setTimeout(() => loading.remove(), 300);
+    
+    // Create CSV content
+    const rows = [];
+    const headers = ['Project ID', 'Made By', 'Date', 'Status', 'Link'];
+    rows.push(headers.join(','));
+    
+    document.querySelectorAll('.data-table tbody tr').forEach(row => {
+      const cols = row.querySelectorAll('td');
+      const rowData = [
+        cols[0].textContent.trim(),
+        cols[1].textContent.trim(),
+        cols[2].textContent.trim(),
+        cols[3].textContent.trim(),
+        cols[4].querySelector('a')?.href || ''
+      ];
+      rows.push(rowData.join(','));
+    });
+    
+    const csvContent = rows.join('\n');
+    
+    // Create download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Projects_Export_${new Date().toISOString().slice(0,10)}.csv`);
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show completion notification
+    const complete = document.createElement('div');
+    complete.className = 'export-complete';
+    complete.innerHTML = `
+      <i class="fas fa-check-circle"></i>
+      <span>Projects exported successfully!</span>
+    `;
+    document.body.appendChild(complete);
+    
+    setTimeout(() => {
+      complete.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+      complete.classList.remove('show');
+      setTimeout(() => complete.remove(), 300);
+    }, 3000);
+  }
+}
+</script>
+<button class="btn btn-primary" id="addNewBtn" onclick="openAddProjectModal()">
+  <i class="fas fa-plus"></i>
+  <span class="btn-text">Add New</span>
+  <span class="btn-pulse"></span>
+</button>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="stats-cards">
+<div class="stat-card">
+<div class="card-header">
+<div>
+<div class="card-value">1,504</div>
+<div class="card-label">Total Users</div>
+</div>
+<div class="card-icon purple">
+<i class="fas fa-users"></i>
+</div>
+</div>
+<div class="card-change positive">
+<i class="fas fa-arrow-up"></i>
+<span>12.5% from last month</span>
+</div>
+</div>
+<div class="stat-card">
+<div class="card-header">
+<div>
+<div class="card-value">24</div>
+<div class="card-label">Total Projects</div>
+</div>
+<div class="card-icon green">
+<i class="fas fa-shopping-cart"></i>
+</div>
+</div>
+<div class="card-change negative">
+<i class="fas fa-arrow-down"></i>
+<span>3.1% from last month</span>
+</div>
+</div>
+<div class="stat-card">
+<div class="card-header">
+<div>
+<div class="card-value">85%</div>
+<div class="card-label">Conversion Rate</div>
+</div>
+<div class="card-icon orange">
+<i class="fas fa-chart-line"></i>
+</div>
+</div>
+<div class="card-change positive">
+<i class="fas fa-arrow-up"></i>
+<span>4.6% from last month</span>
+</div>
+</div>
+</div>
+<!-- Recent Orders -->
+<div class="table-card">
+        <div class="card-title">
+          <h3><i class="fas fa-shopping-bag"></i> Recent Projects</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Project ID</th>
+                <th>Made By</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+<tbody>
+<tr>
+<td>Classification of Computer Language</td>
+<td>Anushtup Nath</td>
+<td>15 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="CLASIFICATION OF COMPUTER LANGUAGE.html"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+<td>Christmas 2024</td>
+<td>Anushtup Nath</td>
+<td>14 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="Christmas 2024.html"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+<td>Dinosaur Game</td>
+<td>Anushtup Nath</td>
+<td>13 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="DINOSAUR GAME.html"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+<td>Game</td>
+<td>Anushtup Nath</td>
+<td>12 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="Game.html"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+<td>Calculator</td>
+<td>Anushtup Nath</td>
+<td>11 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="https://scratch.mit.edu/projects/19901239/fullscreen/"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+<td>2D Minecraft</td>
+<td>Anushtup Nath</td>
+<td>09 Mar 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="https://scratch.mit.edu/projects/10128407/fullscreen/"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+<tr>
+  <td>3D Car Racing</td>
+  <td>Anushtup Nath</td>
+  <td>24 Apr 2025</td>
+  <td>
+  <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+  </td>
+  <td>
+  <a href="https://ayush1234a-tech-boop.github.io/AyushHUB/3D-Night-Driving-Car-main/index.html"><button class="btn btn-outline btn-sm">
+  <i class="fas fa-eye"></i> View
+                    </button>
+  </a>
+  </td>
+  </tr>
+  <tr>
+    <td>QR Code Generator</td>
+    <td>Anushtup Nath</td>
+    <td>13 May 2025</td>
+    <td>
+    <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+    </td>
+    <td>
+    <a href="QRCODE.html"><button class="btn btn-outline btn-sm">
+    <i class="fas fa-eye"></i> View
+                      </button>
+    </a>
+    </td>
+    </tr>
+    <tr>
+      <td>To Do List</td>
+      <td>Anushtup Nath</td>
+      <td>18 May 2025</td>
+      <td>
+      <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+      </td>
+      <td>
+      <a href="to-do-list.html"><button class="btn btn-outline btn-sm">
+      <i class="fas fa-eye"></i> View
+                        </button>
+      </a>
+      </td>
+      </tr>
+      <tr>
+        <td>Javascript World Clock</td>
+        <td>Anushtup Nath</td>
+        <td>18 May 2025</td>
+        <td>
+        <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+        </td>
+        <td>
+        <a href="javascriptclock.html"><button class="btn btn-outline btn-sm">
+        <i class="fas fa-eye"></i> View
+                          </button>
+        </a>
+        </td>
+        </tr>
+        <tr>
+          <td>Guess The Word</td>
+          <td>Anushtup Nath</td>
+          <td>20 May 2025</td>
+          <td>
+          <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+          </td>
+          <td>
+          <a href="guesword.html"><button class="btn btn-outline btn-sm">
+          <i class="fas fa-eye"></i> View
+                            </button>
+          </a>
+          </td>
+          </tr>
+          <tr>
+            <td>Quiz Game</td>
+            <td>Anushtup Nath</td>
+            <td>25 May 2025</td>
+            <td>
+            <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+            </td>
+            <td>
+            <a href="quiz.html"><button class="btn btn-outline btn-sm">
+            <i class="fas fa-eye"></i> View
+                              </button>
+            </a>
+            </td>
+            </tr>
+            <tr>
+              <td>Stone Paper Scissor</td>
+              <td>Anushtup Nath</td>
+              <td>29 May 2025</td>
+              <td>
+              <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+              </td>
+              <td>
+              <a href="/rock-paper-scissors-video-master/index.html"><button class="btn btn-outline btn-sm">
+              <i class="fas fa-eye"></i> View
+                                </button>
+              </a>
+              </td>
+              </tr>
+              <tr>
+                <td>Age Calculator</td>
+                <td>Anushtup Nath</td>
+                <td>30 May 2025</td>
+                <td>
+                <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                </td>
+                <td>
+                <a href="age.html"><button class="btn btn-outline btn-sm">
+                <i class="fas fa-eye"></i> View
+                                  </button>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                  <td>Stopwatch Timer</td>
+                  <td>Anushtup Nath</td>
+                  <td>4 June 2025</td>
+                  <td>
+                  <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                  </td>
+                  <td>
+                  <a href="timer.html"><button class="btn btn-outline btn-sm">
+                  <i class="fas fa-eye"></i> View
+                                    </button>
+                  </a>
+                  </td>
+                  </tr>
+                  <tr>
+                    <td>Solar System </td>
+                    <td>Anushtup Nath</td>
+                    <td>8 June 2025</td>
+                    <td>
+                    <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                    </td>
+                    <td>
+                    <a href="solarsytem.html"><button class="btn btn-outline btn-sm">
+                    <i class="fas fa-eye"></i> View
+                                      </button>
+                    </a>
+                    </td>
+                    </tr>
+                      <tr>
+                      <td>Anushtup Nath | Birthday Wish </td>
+                      <td>Anushtup Nath</td>
+                      <td>12 June 2025</td>
+                      <td>
+                      <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                      </td>
+                      <td>
+                      <a href="birthday.html"><button class="btn btn-outline btn-sm">
+                      <i class="fas fa-eye"></i> View
+                                        </button>
+                      </a>
+                      </td>
+                      </tr>
+   <tr>
+                      <td>BG Remover </td>
+                      <td>Anushtup Nath</td>
+                      <td>14 June 2025</td>
+                      <td>
+                      <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                      </td>
+                      <td>
+                      <a href="bgremover.html"><button class="btn btn-outline btn-sm">
+                      <i class="fas fa-eye"></i> View
+                                        </button>
+                      </a>
+                      </td>
+                      </tr>
+                      <tr>
+                        <td>Image Enhancer </td>
+                        <td>Anushtup Nath</td>
+                        <td>15 June 2025</td>
+                        <td>
+                        <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                        </td>
+                        <td>
+                        <a href="imageenhancer.html"><button class="btn btn-outline btn-sm">
+                        <i class="fas fa-eye"></i> View
+                                          </button>
+                        </a>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>JPG AND PNG CONVERTER </td>
+                        <td>Anushtup Nath</td>
+                        <td>16 June 2025</td>
+                        <td>
+                        <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                        </td>
+                        <td>
+                        <a href="jpg-to-png.html"><button class="btn btn-outline btn-sm">
+                        <i class="fas fa-eye"></i> View
+                                          </button>
+                        </a>
+                        </td>
+                        </tr>
+  <tr>
+                        <td>EQUATION SOLVER </td>
+                        <td>Anushtup Nath</td>
+                        <td>17 June 2025</td>
+                        <td>
+                        <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                        </td>
+                        <td>
+                        <a href="algebra.html"><button class="btn btn-outline btn-sm">
+                        <i class="fas fa-eye"></i> View
+                                          </button>
+                        </a>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>Youtube Videos Website </td>
+                        <td>Anushtup Nath</td>
+                        <td>19 June 2025</td>
+                        <td>
+                        <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+                        </td>
+                        <td>
+                        <a href="youtube.html"><button class="btn btn-outline btn-sm">
+                        <i class="fas fa-eye"></i> View
+                                          </button>
+                        </a>
+                        </td>
+                        </tr>
+  <tr>
+<td>Ayush Code Editor</td>
+<td>Anushtup Nath</td>
+<td>20 Dec 2025</td>
+<td>
+<span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+</td>
+<td>
+<a href="./ayushcode/index.html"><button class="btn btn-outline btn-sm">
+<i class="fas fa-eye"></i> View
+                  </button>
+</a>
+</td>
+</tr>
+                    <tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<script>
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('active');
+}
+</script>
+
+  <script>
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('active');
+}
+
+function openAddProjectModal() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Project</h3>
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="projectName">Project Name</label>
+          <input type="text" id="projectName" class="form-control" placeholder="Enter project name">
+        </div>
+        <div class="form-group">
+          <label for="projectDate">Date</label>
+          <input type="date" id="projectDate" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="projectLink">Project Link</label>
+          <input type="url" id="projectLink" class="form-control" placeholder="https://example.com">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="addProject()">Add Project</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  setTimeout(() => modal.classList.add('active'), 10);
+}
+
+function closeModal() {
+  const modal = document.querySelector('.modal-overlay');
+  modal.classList.remove('active');
+  setTimeout(() => modal.remove(), 300);
+}
+
+function addProject() {
+  const name = document.getElementById('projectName').value;
+  const date = document.getElementById('projectDate').value;
+  const link = document.getElementById('projectLink').value;
+  
+  if (!name || !date || !link) {
+    alert('Please fill all fields');
+    return;
+  }
+  
+  // Format date (e.g., "15 Mar 2025")
+  const formattedDate = new Date(date).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'short', year: 'numeric'
+  });
+  
+  // Add new row to the table
+  const table = document.querySelector('.data-table tbody');
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>${name}</td>
+    <td>Anushtup Nath</td>
+    <td>${formattedDate}</td>
+    <td>
+      <span class="status active"><i class="fas fa-check-circle"></i> Completed</span>
+    </td>
+    <td>
+      <a href="${link}"><button class="btn btn-outline btn-sm">
+        <i class="fas fa-eye"></i> View
+      </button></a>
+    </td>
+  `;
+  
+  // Add animation class
+  newRow.classList.add('animate__animated', 'animate__fadeInUp');
+  
+  // Insert at the top of the table
+  if (table.firstChild) {
+    table.insertBefore(newRow, table.firstChild);
+  } else {
+    table.appendChild(newRow);
+  }
+  
+  closeModal();
+  
+  // Show success notification
+  showNotification('Project added successfully!', 'success');
+}
+
+function showNotification(message, type) {
+  const notification = document.createElement('div');
+  notification.className = `notification-toast ${type}`;
+  notification.innerHTML = `
+    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+    <span>${message}</span>
+  `;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
+
+
+
