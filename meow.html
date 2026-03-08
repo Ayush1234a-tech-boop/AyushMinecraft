@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Important Message</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#111,#333);
+    font-family:Arial, sans-serif;
+    color:white;
+    text-align:center;
+}
+
+.box{
+    background:#1e1e1e;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+button{
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:#ff4444;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ff2222;
+    transform:scale(1.1);
+}
+
+#msg{
+    margin-top:20px;
+    font-size:28px;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>⚠️ Urgent Message</h1>
+<p>Click the button to reveal the secret message</p>
+
+<button onclick="showMsg()">Reveal</button>
+
+<div id="msg">
+Chal nikal MC BSDK MADRA CHADRAM Swapnanil 😂
+</div>
+</div>
+
+<script>
+function showMsg(){
+    document.getElementById("msg").style.display="block";
+}
+</script>
+
+</body>
+</html>
